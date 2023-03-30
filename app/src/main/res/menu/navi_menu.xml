@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:title="홈"
+        android:icon="@drawable/icon_navi_home"/>
+
+    <item
+        android:id="@+id/interestsFragment"
+        android:title="즐겨찾기"
+        android:icon="@drawable/icon_navi_interests"/>
+
+    <item
+        android:id="@+id/communityFragment"
+        android:title="커뮤니티"
+        android:icon="@drawable/icon_navi_community"/>
+
+    <item
+        android:id="@+id/accountFragment"
+        android:title="내정보"
+        android:icon="@drawable/icon_navi_account"/>
+</menu>

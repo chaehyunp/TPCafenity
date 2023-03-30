@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1002533726884",
+    "project_id": "cafenityhue",
+    "storage_bucket": "cafenityhue.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002533726884:android:0ccb773049c3de3b645431",
+        "android_client_info": {
+          "package_name": "com.ch96.tpcafenity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002533726884-d132oocmbb7npnibkjdjugk3pvv5kkv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBioLDRscSUNFooKJqyy4GpCD165P7Cyps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002533726884-d132oocmbb7npnibkjdjugk3pvv5kkv9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

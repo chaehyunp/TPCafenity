@@ -1,11 +1,9 @@
-package com.ch96.tpcafenity.login
+package com.ch96.tpcafenity.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.databinding.ActivityLoginBinding
-import com.ch96.tpcafenity.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -30,22 +28,22 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLoginNaver.setOnClickListener { clickNaverBtn() }
     }
 
-    fun clickLoginBtn() {
+    private fun clickLoginBtn() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
-    fun clickSignupBtn() {
+    private fun clickSignupBtn() {
         startActivity(Intent(this, SignupActivity::class.java))
     }
 
-    fun autoLogin() {
+    private fun autoLogin() {
         binding.radioBtnAutoLogin.isChecked()
     }
-    fun saveId() {
+    private fun saveId() {
         binding.radioBtnSaveId.isChecked()
     }
 
-    fun clickKakaoBtn() {}
-    fun clickGoogleBtn() {}
-    fun clickNaverBtn() {}
+    private fun clickKakaoBtn() {}
+    private fun clickGoogleBtn() {}
+    private fun clickNaverBtn() {}
 }
