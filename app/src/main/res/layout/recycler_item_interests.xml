@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    android:layout_margin="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_shop"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_no_image" />
+
+        <TextView
+            android:id="@+id/tv_shop_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_below="@+id/iv_shop"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="테스트문장테스트문장테스트문장"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_star_rate"
+            android:drawablePadding="4dp"
+            android:layout_below="@+id/tv_shop_name"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="4.5"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:includeFontPadding="false"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
