@@ -1,14 +1,11 @@
 package com.ch96.tpcafenity.fragments
 
-import android.content.ClipData.Item
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ch96.tpcafenity.R
-import com.ch96.tpcafenity.adapters.RecyclerInterestsAdapter
+import com.ch96.tpcafenity.adapters.RecyclerShopInfoAdapter
 import com.ch96.tpcafenity.databinding.FragmentInterestsBinding
 import com.ch96.tpcafenity.model.ShopInfo
 
@@ -40,7 +37,7 @@ class InterestsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding.recyclerInterests.adapter = RecyclerInterestsAdapter(requireContext(), items)
+        binding.recyclerInterests.adapter = RecyclerShopInfoAdapter(requireContext(), items)
 
         return binding.root
     }

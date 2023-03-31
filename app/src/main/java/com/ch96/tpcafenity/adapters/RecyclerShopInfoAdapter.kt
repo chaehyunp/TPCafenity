@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.ch96.tpcafenity.databinding.RecyclerItemInterestsBinding
+import com.ch96.tpcafenity.databinding.RecyclerItemShopInfoBinding
 import com.ch96.tpcafenity.model.ShopInfo
 
-class RecyclerInterestsAdapter (var context: Context, var items:MutableList<ShopInfo>): Adapter<RecyclerInterestsAdapter.VH>() {
-    inner class VH(var binding: RecyclerItemInterestsBinding): ViewHolder(binding.root)
+class RecyclerShopInfoAdapter (var context: Context, var items:MutableList<ShopInfo>): Adapter<RecyclerShopInfoAdapter.VH>() {
+    inner class VH(var binding: RecyclerItemShopInfoBinding): ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH
-    = VH(RecyclerItemInterestsBinding.inflate(LayoutInflater.from(context), parent, false))
+    = VH(RecyclerItemShopInfoBinding.inflate(LayoutInflater.from(context), parent, false))
 
     override fun getItemCount(): Int = items.size
 

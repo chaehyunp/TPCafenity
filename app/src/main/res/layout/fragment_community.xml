@@ -6,21 +6,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.CommunityFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/layout_list_interests"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"/>
+        android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
         app:backgroundTint="@color/primary"
         app:icon="@drawable/icon_action_write"
+        app:iconTint="@color/white"
         android:text="작성하기"
         android:textColor="@color/white"/>
 

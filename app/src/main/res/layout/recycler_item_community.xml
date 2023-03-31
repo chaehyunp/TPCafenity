@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp">
 
     <ImageView
         android:id="@+id/iv_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/img_no_image"
+        android:layout_marginLeft="8dp"
         android:scaleType="centerCrop"/>
 
     <TextView
@@ -55,5 +57,12 @@
         android:text="23.03.31"
         android:textColor="@color/blk600"
         android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/devide_line"
+        android:layout_below="@+id/iv_img"
+        android:layout_marginTop="4dp"/>
 
 </RelativeLayout>
