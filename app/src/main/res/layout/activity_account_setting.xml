@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AccountSettingActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
+    <TextView
+        android:id="@+id/tv_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그아웃"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginHorizontal="24dp"/>
+
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원탈퇴"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginHorizontal="24dp"/>
+
+
+</LinearLayout>

@@ -32,7 +32,7 @@
         android:padding="40dp"
         android:layout_below="@+id/tv_title">
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <EditText
             android:id="@+id/et_nick"
             android:layout_width="match_parent"
             android:layout_height="56dp"

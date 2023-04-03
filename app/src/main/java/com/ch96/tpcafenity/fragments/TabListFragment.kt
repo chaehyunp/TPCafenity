@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.adapters.RecyclerShopInfoAdapter
 import com.ch96.tpcafenity.databinding.FragmentTabListBinding
 import com.ch96.tpcafenity.model.ShopInfo

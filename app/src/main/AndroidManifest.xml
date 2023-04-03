@@ -13,6 +13,33 @@
         android:theme="@style/Theme.TPCafenity"
         tools:targetApi="31">
         <activity
+            android:name=".activities.LogoutDialogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SettingDeleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SettingLogoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AccountSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AccountAlertActivity"
+            android:exported="false" />
+        <activity
+            android:name=".fragments.TabMyreviewFragment"
+            android:exported="false" />
+        <activity
+            android:name=".fragments.TabMycommunityFragment"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AccountMypostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AccountProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.NewWriteActivity"
             android:exported="false" />
         <activity

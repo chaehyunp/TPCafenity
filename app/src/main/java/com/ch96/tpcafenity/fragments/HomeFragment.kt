@@ -11,23 +11,17 @@ import com.ch96.tpcafenity.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-
 class HomeFragment : Fragment() {
 
     private val binding:FragmentHomeBinding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
-
     private val tabTextList = listOf("리스트로 보기", "지도로 보기")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //네트워크에서 불러올때
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding.pager.adapter = ViewPagerHomeAdapter(requireActivity())
 

@@ -35,6 +35,9 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_profile"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="24dp"
@@ -70,6 +73,9 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_mypost"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="24dp"
@@ -105,6 +111,9 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_alert"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="24dp"
@@ -140,6 +149,9 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_setting"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="24dp"

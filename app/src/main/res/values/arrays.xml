@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="logout">
+        <item>"원하는 기능이 없어요"</item>
+        <item>"알림이 너무 많이 와요</item>
+        <item>"비매너 사용자가 많아요"</item>
+        <item>"새 계정을 만들고 싶어요"</item>
+        <item>"기타"</item>
+    </string-array>
+</resources>
