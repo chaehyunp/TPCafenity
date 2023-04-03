@@ -50,12 +50,12 @@
             android:text="8자 이내로 입력해주세요"
             android:drawableLeft="@drawable/icon_warning"
             android:drawablePadding="4dp"
-            android:drawableTint="#ffff0000"
             android:textColor="#ffff0000"
             android:textSize="14sp"
             android:paddingTop="4dp"
             android:paddingHorizontal="24dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:drawableTint="#ffff0000" />
 
         <TextView
             android:id="@+id/tv_duplicate_nick"

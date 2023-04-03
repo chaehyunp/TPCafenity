@@ -43,7 +43,7 @@ class AccountSettingActivity : AppCompatActivity() {
         btnYes.setOnClickListener {
             Toast.makeText(this, "로그아웃되었습니다.", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
