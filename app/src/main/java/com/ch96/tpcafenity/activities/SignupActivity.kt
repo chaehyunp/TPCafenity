@@ -8,10 +8,10 @@ import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.databinding.ActivitySignupBinding
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class SignupActivity : AppCompatActivity() {
 
@@ -59,12 +59,21 @@ class SignupActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                if (binding.etPassword.length() > 15)
-//                    binding.layoutPassword.error = "비밀번호 글자수 최대 허용치를 초과했습니다."
-//                else binding.layoutPassword.error = null
                 if (binding.etPassword.length() > 15)
                     binding.layoutPassword.error = "비밀번호 글자수 최대 허용치를 초과했습니다."
                 else binding.layoutPassword.error = null
+
+                if (binding.etPasswordConfirm.text.toString()==(binding.etPassword.text.toString())) {
+                    binding.layoutPasswordConfirm.error = null
+                    //비밀번호가 일치할경우 가입버튼 활성화
+                    binding.btnSignupDisabled.visibility = View.INVISIBLE
+                    binding.btnSignupActive.visibility = View.VISIBLE
+                } else {
+                    binding.layoutPasswordConfirm.error = "비밀번호가 다릅니다."
+                    //비밀번호가 불일치할경우 가입버튼 비활성화
+                    binding.btnSignupDisabled.visibility = View.VISIBLE
+                    binding.btnSignupActive.visibility = View.INVISIBLE
+                }
 
             }
 
@@ -91,33 +100,32 @@ class SignupActivity : AppCompatActivity() {
         })
 
         //비밀번호 - 비밀번호 확인 문자 일치 여부
-        binding.etPassword.addTextChangedListener(object:TextWatcher {
+        binding.etPasswordConfirm.addTextChangedListener(object:TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                if ((binding.etPassword.text.toString()).equals(binding.etPasswordConfirm.text.toString())) {
-                    binding.layoutPasswordConfirm.error = "비밀번호가 일치합니다."
+                if (binding.etPasswordConfirm.text.toString()==(binding.etPassword.text.toString())) {
+                    binding.layoutPasswordConfirm.error = null
                     //비밀번호가 일치할경우 가입버튼 활성화
                     binding.btnSignupDisabled.visibility = View.INVISIBLE
                     binding.btnSignupActive.visibility = View.VISIBLE
+                } else {
+                    binding.layoutPasswordConfirm.error = "비밀번호가 다릅니다."
+                    //비밀번호가 불일치할경우 가입버튼 비활성화
+                    binding.btnSignupDisabled.visibility = View.VISIBLE
+                    binding.btnSignupActive.visibility = View.INVISIBLE
                 }
-                else binding.layoutPasswordConfirm.error = "비밀번호가 다릅니다."
+
             }
 
-            override fun afterTextChanged(p0: Editable?) {
-                if ((binding.etPassword.text.toString()).equals(binding.etPasswordConfirm.text.toString())) {
-                    binding.layoutPasswordConfirm.error = "비밀번호가 일치합니다."
-                    //비밀번호가 일치할경우 가입버튼 활성화
-                    binding.btnSignupDisabled.visibility = View.INVISIBLE
-                    binding.btnSignupActive.visibility = View.VISIBLE
-                }
-                else binding.layoutPasswordConfirm.error = "비밀번호가 다릅니다."
-            }
+            override fun afterTextChanged(p0: Editable?) {}
 
         })
 
     }
+
+    var baseUrl:String = "http://cafenity.dothome.co.kr"
 
     private fun clickSignup() {
 
@@ -132,6 +140,10 @@ class SignupActivity : AppCompatActivity() {
         if (binding.layoutNick.error == null || binding.layoutEmail.error == null || binding.layoutPassword.error == null || binding.layoutPasswordConfirm.error == null) {
             //모든 항목의 error값이 null = 올바르게 기입한 경우 -> 가입데이터 저장 및 메인화면 이동
 
+            val retrofit:Retrofit = Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build()
 
             //ManinActivity로 이동하면서 stack에 있는 task 지우기
             val intent = Intent(this, MainActivity::class.java)
