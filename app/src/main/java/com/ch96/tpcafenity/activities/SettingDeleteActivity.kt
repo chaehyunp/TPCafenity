@@ -33,11 +33,11 @@ class SettingDeleteActivity : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 if (p2 > 0) {
                     binding.tvDeleteInfo.setVisibility(View.VISIBLE)
-                    binding.btn.setVisibility(View.VISIBLE)
+                    binding.btn.visibility = View.VISIBLE
                 }
                 if (p2 == 0) {
                     binding.tvDeleteInfo.setVisibility(View.INVISIBLE)
-                    binding.btn.setVisibility(View.INVISIBLE)
+                    binding.btn.visibility = View.INVISIBLE
                 }
             }
 
