@@ -29,125 +29,92 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="40dp"
+        android:paddingHorizontal="40dp"
         android:layout_below="@+id/tv_title">
 
-        <EditText
-            android:id="@+id/et_nick"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_nick"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="닉네임 (8자내)"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="16sp"
-            android:inputType="text"
-            android:background="@drawable/bg_textfield"
-            android:paddingHorizontal="24dp"/>
-
-        <TextView
-            android:id="@+id/tv_wrong_nick"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8자 이내로 입력해주세요"
-            android:drawableLeft="@drawable/icon_warning"
-            android:drawablePadding="4dp"
-            android:textColor="#ffff0000"
-            android:textSize="14sp"
-            android:paddingTop="4dp"
-            android:paddingHorizontal="24dp"
-            android:visibility="gone"
-            app:drawableTint="#ffff0000" />
+            android:layout_marginBottom="16dp">
 
-        <TextView
-            android:id="@+id/tv_duplicate_nick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이미 동일한 닉네임이 존재합니다."
-            android:drawableLeft="@drawable/icon_warning"
-            android:drawablePadding="4dp"
-            android:drawableTint="#ffff0000"
-            android:textColor="#ffff0000"
-            android:textSize="14sp"
-            android:paddingTop="4dp"
-            android:paddingHorizontal="24dp"
-            android:visibility="gone"/>
+            <EditText
+                android:id="@+id/et_nick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="닉네임 (8자내)"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:textSize="16sp"
+                android:inputType="text"
+                android:backgroundTint="@color/blk900"
+                android:paddingHorizontal="24dp" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_email"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_email"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="이메일"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="16sp"
-            android:inputType="textEmailAddress"
-            android:background="@drawable/bg_textfield"
-            android:layout_marginTop="8dp"
-            android:paddingHorizontal="24dp"/>
-
-        <TextView
-            android:id="@+id/tv_wrong_email"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="유효한 이메일주소가 아닙니다."
-            android:drawableLeft="@drawable/icon_warning"
-            android:drawablePadding="4dp"
-            android:drawableTint="#ffff0000"
-            android:textColor="#ffff0000"
-            android:textSize="14sp"
-            android:paddingTop="4dp"
-            android:paddingHorizontal="24dp"
-            android:visibility="gone"/>
+            android:layout_marginBottom="16dp">
 
-        <TextView
-            android:id="@+id/tv_duplicate_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이미 동일한 이메일이 존재합니다."
-            android:drawableLeft="@drawable/icon_warning"
-            android:drawablePadding="4dp"
-            android:drawableTint="#ffff0000"
-            android:textColor="#ffff0000"
-            android:textSize="14sp"
-            android:paddingTop="4dp"
-            android:paddingHorizontal="24dp"
-            android:visibility="gone"/>
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="이메일"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:textSize="16sp"
+                android:inputType="textEmailAddress"
+                android:backgroundTint="@color/blk900"
+                android:paddingHorizontal="24dp" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_password"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_password"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="비밀번호"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="16sp"
-            android:inputType="textPassword"
-            android:background="@drawable/bg_textfield"
-            android:layout_marginTop="8dp"
-            android:paddingHorizontal="24dp"/>
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_password_confirm"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="비밀번호 확인"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="16sp"
-            android:inputType="textPassword"
-            android:background="@drawable/bg_textfield"
-            android:layout_marginTop="8dp"
-            android:paddingHorizontal="24dp"/>
-
-        <TextView
-            android:id="@+id/tv_wrong_password"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="비밀번호가 다릅니다."
-            android:drawableLeft="@drawable/icon_warning"
-            android:drawablePadding="4dp"
-            android:drawableTint="#ffff0000"
-            android:textColor="#ffff0000"
-            android:textSize="14sp"
-            android:paddingTop="4dp"
-            android:paddingHorizontal="24dp"
-            android:visibility="gone"/>
+            android:layout_marginBottom="16dp"
+            app:passwordToggleEnabled="true">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="비밀번호(영문,숫자 16자내)"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:textSize="16sp"
+                android:inputType="textPassword"
+                android:backgroundTint="@color/blk900"
+                android:paddingHorizontal="24dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:passwordToggleEnabled="true">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="16"
+                android:hint="비밀번호 확인"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:includeFontPadding="false"
+                android:textSize="16sp"
+                android:inputType="textPassword"
+                android:backgroundTint="@color/blk900"
+                android:paddingHorizontal="24dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:id="@+id/btn_signup"

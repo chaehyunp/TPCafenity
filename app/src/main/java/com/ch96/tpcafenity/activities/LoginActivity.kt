@@ -12,10 +12,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //로그인
+        //로그인버튼
         binding.btnLogin.setOnClickListener { clickLoginBtn() }
 
-        //회원가입
+        //회원가입버튼
         binding.btnSignup.setOnClickListener { clickSignupBtn() }
 
         //라디오버튼(자동로그인,아이디저장)

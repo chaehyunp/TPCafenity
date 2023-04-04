@@ -7,6 +7,7 @@
     android:layout_margin="8dp">
 
     <RelativeLayout
+        android:id="@+id/layout_recycler_shop_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -27,7 +28,8 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="8dp"
             android:text="테스트문장테스트문장테스트문장"
-            android:fontFamily="@font/noto_sans_kr_bold"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:includeFontPadding="false"
             android:textSize="20sp"
             android:textColor="@color/black"/>
 

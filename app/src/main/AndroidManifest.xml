@@ -13,6 +13,9 @@
         android:theme="@style/Theme.TPCafenity"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ShopInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.DeleteAccountActivity"
             android:exported="false" />
         <activity

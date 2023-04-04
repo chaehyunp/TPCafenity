@@ -2,6 +2,7 @@ package com.ch96.tpcafenity.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -23,5 +24,7 @@ class RecyclerShopInfoAdapter (var context: Context, var items:MutableList<ShopI
         holder.binding.tvRate.setText(item.shopRate)
 
     }
+
+
 
 }

@@ -9,37 +9,81 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
+        android:layout_height="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="완료"
+                android:gravity="center"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:textColor="@color/primary"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <Spinner
+        android:id="@id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+
+        android:padding="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/spinner"
         android:padding="16dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/devide_line"/>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="80dp"
             android:hint="제목"
             android:fontFamily="@font/noto_sans_kr_bold"
-            android:textColor="@color/black"
+            android:textColor="@color/blk400"
             android:textSize="20sp"
             android:inputType="text"
-            android:paddingHorizontal="16dp"/>
+            android:paddingHorizontal="16dp"
+            android:background="@null"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/devide_line"/>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="내용을 입력하세요."
+            android:layout_marginTop="8dp"
+            android:background="@null"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="16sp"
-            android:inputType="text"
             android:gravity="top"
+            android:hint="내용을 입력하세요."
+            android:inputType="text"
             android:paddingHorizontal="16dp"
-            android:layout_marginTop="8dp"/>
+            android:textColor="@color/blk800"
+            android:textSize="16sp" />
+
 
     </LinearLayout>
 
