@@ -27,6 +27,7 @@ import java.util.regex.Pattern
 class SignupActivity : AppCompatActivity() {
 
     val binding:ActivitySignupBinding by lazy { ActivitySignupBinding.inflate(layoutInflater) }
+    var baseUrl:String = "http://testhue96.dothome.co.kr/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -145,8 +146,6 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    var baseUrl:String = "http://testhue96.dothome.co.kr/"
-
     private fun clickSignup() {
 
         //서버에 전송할 데이터 [nick, email, password]
@@ -157,6 +156,25 @@ class SignupActivity : AppCompatActivity() {
 
         val retrofit:Retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
+        
+//        retrofitService.getNickAndEmail().enqueue(object : Callback<MutableList<UserAccount>>{
+//            override fun onResponse(
+//                call: Call<MutableList<UserAccount>>,
+//                response: Response<MutableList<UserAccount>>
+//            ) {
+//                val res:MutableList<UserAccount> ?= response.body()
+//                if (res?.get(0).toString() == emailUser["nick"]) binding.layoutNick.error = "중복된 닉네임이 있습니다." else null
+//                if (res?.get(1).toString() == emailUser["email"]) binding.layoutEmail.error = "중복된 이메일이 있습니다." else null
+//
+//
+//            }
+//
+//            override fun onFailure(call: Call<MutableList<UserAccount>>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
+        
         retrofitService.saveEmailAccount(emailUser).enqueue(object : Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
 
@@ -166,10 +184,10 @@ class SignupActivity : AppCompatActivity() {
                 Log.i("what","$res")
 
                 //ManinActivity로 이동하면서 stack에 있는 task 지우기
-//                val intent = Intent(this@SignupActivity, MainActivity::class.java)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                startActivity(intent)
+                val intent = Intent(this@SignupActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
