@@ -145,38 +145,40 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    var baseUrl:String = "http://cafenity.dothome.co.kr"
+    var baseUrl:String = "http://testhue96.dothome.co.kr/"
 
     private fun clickSignup() {
 
-        Log.i("what", "clicked") //클릭은 됨
-
         //서버에 전송할 데이터 [nick, email, password]
-        var nick:String = binding.etNick.text.toString()
-        var email:String = binding.etEmail.text.toString()
-        var password:String = binding.etPassword.text.toString()
-
-        Log.i("what", "$nick") //변수에 저장도 잘됨
+        val emailUser = mutableMapOf<String, String>()
+        emailUser["nick"] = binding.etNick.text.toString()
+        emailUser["email"] = binding.etEmail.text.toString()
+        emailUser["password"] = binding.etPassword.text.toString()
 
         val retrofit:Retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
-        retrofitService.saveEmailAccount(nick, email, password).enqueue(object : Callback<UserAccount>{
-            override fun onResponse(call: Call<UserAccount>, response: Response<UserAccount>) {
-                Toast.makeText(this@SignupActivity, "${response.body()?.nick}님 반갑습니다!", Toast.LENGTH_SHORT).show()
-                Log.i("what","${response.body()?.nick}")
+        retrofitService.saveEmailAccount(emailUser).enqueue(object : Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                val res = response.body()
+
+                Toast.makeText(this@SignupActivity, "${emailUser["nick"]}님 반갑습니다!", Toast.LENGTH_SHORT).show()
+                Log.i("what","$res")
+
+                //ManinActivity로 이동하면서 stack에 있는 task 지우기
+//                val intent = Intent(this@SignupActivity, MainActivity::class.java)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                startActivity(intent)
             }
 
-            override fun onFailure(call: Call<UserAccount>, t: Throwable) {
+            override fun onFailure(call: Call<String>, t: Throwable) {
                 Toast.makeText(this@SignupActivity, "계정 가입 실패", Toast.LENGTH_SHORT).show()
+                Log.i("what", "${t.message}")
             }
 
         })
 
-        //ManinActivity로 이동하면서 stack에 있는 task 지우기
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
 
     }
     override fun onSupportNavigateUp(): Boolean {
