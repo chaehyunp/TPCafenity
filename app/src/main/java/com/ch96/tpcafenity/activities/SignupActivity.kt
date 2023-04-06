@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.databinding.ActivitySignupBinding
+import com.ch96.tpcafenity.model.NickEmail
 import com.ch96.tpcafenity.model.UserAccount
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
@@ -118,13 +119,14 @@ class SignupActivity : AppCompatActivity() {
         })
     }
 
-    // 특수문자 존재 여부를 확인하는 메소드 - 어려워서 보류
-//    private fun hasSpecialCharacter(input: String): Boolean {
+    private fun hasSpecialCharacter(input: String): Boolean {
+
+        TODO("닉네임에 숫자 특수문자 입력시 에러메시지")
 //        val exceptPattern = "^(?=.*[0-9])(?=.*[$@$!%*#?&.])[[0-9]$@$!%*#?&.]{8,20}$" //숫자, 특수문자
 //        Pattern.compile(exceptPattern).matcher(exceptPattern)
 //        return Pattern.matches(exceptPattern, input)
-//
-//    }
+
+    }
 
     //Error값이 null일 경우 && 모든 입력창에 입력되었을경우 -> 회원가입 버튼 활성화 메소드
     private fun checkError() {
@@ -156,25 +158,24 @@ class SignupActivity : AppCompatActivity() {
 
         val retrofit:Retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
-        
-//        retrofitService.getNickAndEmail().enqueue(object : Callback<MutableList<UserAccount>>{
+
+
+//        retrofitService.checkNickEmail(emailUser["nick"]!!, emailUser["email"]!!).enqueue(object : Callback<NickEmail>{
 //            override fun onResponse(
-//                call: Call<MutableList<UserAccount>>,
-//                response: Response<MutableList<UserAccount>>
+//                call: Call<NickEmail>, response: Response<NickEmail>
 //            ) {
-//                val res:MutableList<UserAccount> ?= response.body()
-//                if (res?.get(0).toString() == emailUser["nick"]) binding.layoutNick.error = "중복된 닉네임이 있습니다." else null
-//                if (res?.get(1).toString() == emailUser["email"]) binding.layoutEmail.error = "중복된 이메일이 있습니다." else null
-//
-//
+//                TODO("닉네임, 이메일 중복 검사")
+//                var res:NickEmail? = response.body()
+//                Toast.makeText(this@SignupActivity, "${res?.nick},${res?.email}", Toast.LENGTH_SHORT).show()
 //            }
 //
-//            override fun onFailure(call: Call<MutableList<UserAccount>>, t: Throwable) {
-//                TODO("Not yet implemented")
+//            override fun onFailure(call: Call<NickEmail>, t: Throwable) {
+//
 //            }
 //
 //        })
-        
+
+        //DB 저장하기
         retrofitService.saveEmailAccount(emailUser).enqueue(object : Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
 
@@ -197,8 +198,8 @@ class SignupActivity : AppCompatActivity() {
 
         })
 
-
     }
+
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
