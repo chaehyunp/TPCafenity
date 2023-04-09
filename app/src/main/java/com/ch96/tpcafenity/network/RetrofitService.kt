@@ -30,4 +30,9 @@ interface RetrofitService {
     @GET("/v2/local/search/category.json")
     fun searchPlace(@Query("category_group_code")categoryCode:String, @Query("y")latitude:String, @Query("x")longitude:String):Call<KakaoSearchPlaceResponse>
 
+    //작성한 게시글 DB에 저장
+    @Multipart
+    @POST("Cafenity/communityPost.php")
+    fun savePost(@PartMap communityPost : Map<String, String>):Call<String>
+
 }

@@ -5,11 +5,13 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.ch96.tpcafenity.R
@@ -40,6 +42,9 @@ private const val TAG_ACCOUNT = "account_fragment"
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+
+    //검색응답 결과객체 참조변수
+    var searchPlaceResponse:KakaoSearchPlaceResponse ?= null
 
     //Kakao Map 요청 데이터 - category_group_code(카테고리 그룹 코드), x(경도:longitude), y(위도:latitude)
     //1. 카테고리 그룹 코드
@@ -72,12 +77,12 @@ class MainActivity : AppCompatActivity() {
             permissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         } else requestMyLocation()
 
+        Log.i("what_000","$searchPlaceResponse")
+
     }
 
     //퍼미션 결과 받아오기 (ResultLauncher - register(1.contracts(about permission), 2.result callback(O/X))
-    val permissionLauncher: ActivityResultLauncher<String> =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission(),
+    val permissionLauncher: ActivityResultLauncher<String> = registerForActivityResult(ActivityResultContracts.RequestPermission(),
             object: ActivityResultCallback<Boolean> {
                 override fun onActivityResult(result: Boolean?) {
                     if (result!!) requestMyLocation() //위치요청
@@ -93,10 +98,10 @@ class MainActivity : AppCompatActivity() {
         val request = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000).build()
 
         //실시간 위치정보 갱신 요청 (퍼미션 받았는지 확인)
-        if (checkSelfPermission(
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(
-                Manifest.permission.ACCESS_COARSE_LOCATION
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED) return
 
         locationProvider.requestLocationUpdates(request, locationCallback, Looper.getMainLooper())
@@ -113,11 +118,10 @@ class MainActivity : AppCompatActivity() {
             locationProvider.removeLocationUpdates(this)
             //얻어온 위치정보를 통해 검색 시작
             searchPlace()
+
+            Log.i("what_location", "$myLocation")
         }
     }
-
-    //검색응답 결과객체 참조변수
-    var searchPlaceResponse:KakaoSearchPlaceResponse ?= null
 
     //Kakao 장소 검색 API 파싱 메소드
     private fun searchPlace() {
@@ -132,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                     response: Response<KakaoSearchPlaceResponse>
                 ) {
                     searchPlaceResponse = response.body()
-
+                    Log.i("what_searchPlaceResponse", "$searchPlaceResponse")
                 }
 
                 override fun onFailure(call: Call<KakaoSearchPlaceResponse>, t: Throwable) {

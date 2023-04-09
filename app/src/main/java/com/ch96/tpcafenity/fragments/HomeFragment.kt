@@ -30,11 +30,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
-
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -43,6 +39,7 @@ class HomeFragment : Fragment() {
         TabLayoutMediator(binding.layoutTab, binding.pager) { tab, position ->
             tab.text = tabTextList[position]
         }.attach()
+
         return binding.root
     }
 
