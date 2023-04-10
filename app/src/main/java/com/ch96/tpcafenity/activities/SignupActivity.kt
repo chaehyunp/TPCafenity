@@ -58,13 +58,7 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                if (binding.etNick.length() > 8)
-                    binding.layoutNick.error = "닉네임의 글자수 최대 허용치를 초과했습니다."
-                else binding.layoutNick.error = null
-
-//                if (hasSpecialCharacter(binding.etNick.text.toString()))
-//                    binding.layoutNick.error = "특수문자 및 숫자는 포함할 수 없습니다."
-//                else binding.layoutNick.error =null
+                checkNick()
                 checkError()
             }
             override fun afterTextChanged(p0: Editable?) {}
@@ -95,13 +89,14 @@ class SignupActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                if(!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())
-                    binding.layoutEmail.error = "올바른 이메일 형태를 입력해주세요."
-                else binding.layoutEmail.error = null
-                checkError()
             }
             
-            override fun afterTextChanged(p0: Editable?) {}
+            override fun afterTextChanged(p0: Editable?) {
+
+                checkEmail()
+                checkError()
+
+            }
         })
 
         //비밀번호 - 비밀번호 확인 문자 일치 여부
@@ -159,22 +154,6 @@ class SignupActivity : AppCompatActivity() {
         val retrofit:Retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
 
-
-//        retrofitService.checkNickEmail(emailUser["nick"]!!, emailUser["email"]!!).enqueue(object : Callback<NickEmail>{
-//            override fun onResponse(
-//                call: Call<NickEmail>, response: Response<NickEmail>
-//            ) {
-//                TODO("닉네임, 이메일 중복 검사")
-//                var res:NickEmail? = response.body()
-//                Toast.makeText(this@SignupActivity, "${res?.nick},${res?.email}", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onFailure(call: Call<NickEmail>, t: Throwable) {
-//
-//            }
-//
-//        })
-
         //DB 저장하기
         retrofitService.saveEmailAccount(emailUser).enqueue(object : Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -198,6 +177,48 @@ class SignupActivity : AppCompatActivity() {
 
         })
 
+    }
+
+    fun checkNick() {
+
+        var nick = binding.etNick.text.toString()
+
+        //입력한 회원정보와 일치하는 정보가 DB에 있는지 확인
+        val retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
+        val retrofitService = retrofit.create(RetrofitService::class.java)
+        retrofitService.checkNick(nick).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.body() != "0") binding.layoutNick.error = "이미 사용중인 닉네임입니다."
+                else if (binding.etNick.length() > 8) binding.layoutNick.error = "닉네임의 글자수 최대 허용치를 초과했습니다."
+                else binding.layoutNick.error = null
+
+                checkError()
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+
+            }
+        })
+    }
+
+    fun checkEmail() {
+
+        var email = binding.etEmail.text.toString()
+
+        //입력한 회원정보와 일치하는 정보가 DB에 있는지 확인
+        val retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
+        val retrofitService = retrofit.create(RetrofitService::class.java)
+        retrofitService.checkEmail(email).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.body() != "0") binding.layoutEmail.error = "이미 가입된 이메일입니다."
+                else if(!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()) binding.layoutEmail.error = "올바른 이메일 형태를 입력해주세요."
+                else binding.layoutEmail.error = null
+                checkError()
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+            }
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {

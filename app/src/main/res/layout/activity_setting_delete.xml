@@ -32,8 +32,8 @@
             android:layout_height="56dp"
             android:spinnerMode="dropdown"
             android:paddingHorizontal="24dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_textfield"/>
+            android:layout_marginTop="16dp" />
+
 
         <TextView
             android:id="@+id/tv_delete_info"
