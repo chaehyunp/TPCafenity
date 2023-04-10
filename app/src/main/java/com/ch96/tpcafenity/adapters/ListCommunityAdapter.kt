@@ -12,7 +12,7 @@ class ListCommunityAdapter (var context: Context, var items:MutableList<Communit
     inner class VH(var binding: RecyclerItemCommunityBinding):ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH
-    =VH(RecyclerItemCommunityBinding.inflate(LayoutInflater.from(context), parent, false))
+    = VH(RecyclerItemCommunityBinding.inflate(LayoutInflater.from(context), parent, false))
 
     override fun getItemCount(): Int = items.size
 

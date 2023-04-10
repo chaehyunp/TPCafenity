@@ -2,6 +2,7 @@ package com.ch96.tpcafenity.network
 
 import android.content.ClipData.Item
 import com.ch96.tpcafenity.GV
+import com.ch96.tpcafenity.model.CommunityList
 import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
 import com.ch96.tpcafenity.model.UserAccount
 import retrofit2.Call
@@ -42,6 +43,11 @@ interface RetrofitService {
     @Multipart
     @POST("Cafenity/communityPost.php")
     fun savePost(@PartMap communityPost : Map<String, String>):Call<String>
+
+    //DB에서 게시글 받아오기
+    @Multipart
+    @POST("Cafenity/getCommunityPosts.php")
+    fun getCommunityPosts():Call<MutableList<CommunityList>>
 
     //Kakao 장소 검색 API
     @Headers("Authorization: KakaoAK ddbb92f9f90921d871078f7bed4f5369")

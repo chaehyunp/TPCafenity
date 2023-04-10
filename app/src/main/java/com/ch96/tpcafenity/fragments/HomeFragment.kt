@@ -28,9 +28,6 @@ class HomeFragment : Fragment() {
     private val binding:FragmentHomeBinding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
     private val tabTextList = listOf("리스트로 보기", "지도로 보기")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
