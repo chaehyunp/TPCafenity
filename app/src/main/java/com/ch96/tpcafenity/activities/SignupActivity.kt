@@ -1,10 +1,8 @@
 package com.ch96.tpcafenity.activities
 
-import android.R.string
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
@@ -13,16 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.databinding.ActivitySignupBinding
-import com.ch96.tpcafenity.model.NickEmail
-import com.ch96.tpcafenity.model.UserAccount
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
-import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import java.util.regex.Pattern
 
 
 class SignupActivity : AppCompatActivity() {

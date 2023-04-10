@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.databinding.ActivityLoginBinding
+import com.ch96.tpcafenity.model.UserAccount
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
 import com.kakao.util.maps.helper.Utility
@@ -56,7 +58,9 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 var res = response.body()
 //                Log.i("what_loginCheck", "$res")
-                if (res == "1") {
+                if (res != null) {
+                    //전역변수에 유저 닉네임 저장
+                    GV.loginUserNick = res
                     Toast.makeText(this@LoginActivity, "반갑습니다!", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
@@ -64,15 +68,14 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
-                TODO("Not yet implemented")
             }
         })
-
 
         //카카오 키 해시 값 얻어오기
 //        val keyHash:String = Utility.getKeyHash(this)
 //        Log.i("keyHash", keyHash)
     }
+
     private fun clickSignupBtn() {
         startActivity(Intent(this, SignupActivity::class.java))
     }

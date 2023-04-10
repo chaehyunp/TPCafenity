@@ -1,10 +1,10 @@
 package com.ch96.tpcafenity.network
 
+import android.content.ClipData.Item
+import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
-import com.ch96.tpcafenity.model.NickEmail
 import com.ch96.tpcafenity.model.UserAccount
 import retrofit2.Call
-import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -13,6 +13,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PartMap
 import retrofit2.http.Query
+
 
 interface RetrofitService {
 
@@ -32,7 +33,7 @@ interface RetrofitService {
     @POST("Cafenity/checkEmail.php")
     fun checkEmail(@Field ("email") email:String):Call<String>
 
-    //로그인 - 입력한 계정 정보가 DB에 있는지 확인
+    //로그인 - 입력한 계정 정보가 DB에 있는지 확인, 해당 정보 받아오기
     @Multipart
     @POST("Cafenity/loginEmailAccount.php")
     fun loginEmailAccount(@PartMap emailUser : Map<String, String>):Call<String>
