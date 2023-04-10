@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.activities.AccountAlertActivity
 import com.ch96.tpcafenity.activities.AccountMypostActivity
@@ -27,6 +28,7 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        binding.tvNick.text = GV.loginUserNick
 
         binding.layoutProfile.setOnClickListener { clickProfile() }
         binding.layoutMypost.setOnClickListener { clickMypost() }

@@ -23,6 +23,7 @@
             android:src="@drawable/img_no_image"/>
 
         <TextView
+            android:id="@+id/tv_nick"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_toRightOf="@id/civ"

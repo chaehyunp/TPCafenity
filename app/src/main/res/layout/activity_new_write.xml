@@ -17,60 +17,129 @@
 
             <TextView
                 android:id="@+id/tv_done"
-                android:layout_width="80dp"
+                android:layout_width="54dp"
                 android:layout_height="wrap_content"
                 android:text="완료"
                 android:gravity="center"
                 android:fontFamily="@font/noto_sans_kr_regular"
                 android:textColor="@color/primary"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="8dp"
+                android:layout_marginRight="16dp"
                 android:textSize="16sp"/>
 
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout
-        android:id="@+id/btn_add_img"
-        android:focusable="true"
-        android:clickable="true"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_below="@+id/toolbar"
-        android:background="@drawable/bg_btn_line"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp">
+    <HorizontalScrollView
+        android:id="@+id/layout_add_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:scrollbars="none"
+        android:layout_below="@id/toolbar">
 
-        <ImageView
-            android:id="@+id/iv_camera"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_camera"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_photo_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/blk300"
-            android:textSize="14sp"
-            android:includeFontPadding="false"
-            android:layout_below="@+id/iv_camera"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="2dp"
-            android:text="0/5"/>
+            <RelativeLayout
+                android:id="@+id/btn_add_img"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_btn_line"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_camera"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="14dp"/>
+
+                <TextView
+                    android:id="@+id/tv_photo_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/blk300"
+                    android:textSize="14sp"
+                    android:includeFontPadding="false"
+                    android:layout_below="@+id/iv_camera"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:text="0/5"/>
 
 
-    </RelativeLayout>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_added1"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_btn_line"
+                android:layout_marginRight="8dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_added2"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_btn_line"
+                android:layout_marginRight="8dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_added3"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/bg_btn_line"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_added4"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_btn_line"
+                android:layout_marginRight="8dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_added5"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_btn_line"
+                android:layout_marginRight="8dp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+
+
+    </HorizontalScrollView>
+
 
     <ImageView
         android:id="@+id/dl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_add_img"
+        android:layout_below="@+id/layout_add_img"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -102,7 +171,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="제목"
-            android:fontFamily="@font/noto_sans_kr_bold"
+            android:fontFamily="@font/noto_sans_kr_regular"
             android:textColorHint="@color/blk600"
             android:textColor="@color/black"
             android:textSize="20sp"

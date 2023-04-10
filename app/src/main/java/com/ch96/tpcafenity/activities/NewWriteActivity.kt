@@ -10,7 +10,12 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.databinding.ActivityNewWriteBinding
 import com.ch96.tpcafenity.fragments.CommunityFragment
@@ -57,7 +62,20 @@ class NewWriteActivity : AppCompatActivity() {
         }
 
         binding.tvDone.setOnClickListener { clickDone() }
+        binding.btnAddImg.setOnClickListener { clickAddImage() }
     }
+
+    fun clickAddImage() {
+
+        pickMediaLauncher.launch(PickVisualMediaRequest())
+
+    }
+
+    var pickMediaLauncher:ActivityResultLauncher<PickVisualMediaRequest> = registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(),
+        ActivityResultCallback {
+            binding.ivAdded1.visibility = View.VISIBLE
+            Glide.with(this).load(it).into(binding.ivAdded1) //이미지뷰에 이미지가 보이지 않음
+        })
 
     private fun clickDone() {
 
