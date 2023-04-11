@@ -6,32 +6,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.ch96.tpcafenity.activities.MainActivity
 import com.ch96.tpcafenity.adapters.RecyclerShopInfoAdapter
 import com.ch96.tpcafenity.databinding.FragmentTabListBinding
 
 class TabListFragment : Fragment() {
 
-    val binding:FragmentTabListBinding by lazy { FragmentTabListBinding.inflate(layoutInflater) }
+    lateinit var binding:FragmentTabListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentTabListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.i("what_mData1","fragment")
-
         //MainActivity에서 받아온 데이터 불러오기
         val mData : MainActivity = requireActivity() as MainActivity
         mData.searchPlaceResponse?.apply {
-            Log.i("what_mData1","${mData}")
-            Log.i("what_mData2","${mData.searchPlaceResponse}")
-            binding.recyclerList.adapter = RecyclerShopInfoAdapter(requireActivity(), documents)
+            binding.recycler.adapter = RecyclerShopInfoAdapter(requireActivity(), documents)
         }
+
     }
 }

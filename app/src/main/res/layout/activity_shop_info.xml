@@ -11,30 +11,24 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/layout_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:tabSelectedTextColor="@color/primary"
+        app:tabIndicatorColor="@color/primary"/>
     
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_no_image"/>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/layout_tab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:tabSelectedTextColor="@color/primary"
-            app:tabIndicatorColor="@color/primary"/>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
         
     </ScrollView>
 

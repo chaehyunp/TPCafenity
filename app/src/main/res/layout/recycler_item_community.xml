@@ -39,7 +39,8 @@
         android:includeFontPadding="false"
         android:fontFamily="@font/noto_sans_kr_regular"
         android:layout_alignStart="@+id/tv_title"
-        android:layout_below="@+id/tv_title"/>
+        android:layout_marginBottom="8dp"
+        android:layout_above="@+id/dl"/>
 
     <TextView
         android:id="@+id/tv_date"
@@ -56,13 +57,14 @@
         android:includeFontPadding="false"
         android:text="23.03.31"
         android:textColor="@color/blk600"
-        android:textSize="14sp" />
+        android:textSize="14sp"/>
 
     <ImageView
+        android:id="@+id/dl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/devide_line"
         android:layout_below="@+id/iv_img"
-        android:layout_marginTop="4dp"/>
+        android:layout_marginTop="6dp"/>
 
 </RelativeLayout>

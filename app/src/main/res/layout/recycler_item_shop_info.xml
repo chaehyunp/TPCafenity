@@ -18,6 +18,17 @@
             android:scaleType="centerCrop"
             android:src="@drawable/img_no_image" />
 
+        <ToggleButton
+            android:id="@+id/toggle_mark"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_mark"
+            android:textOn=" "
+            android:textOff=" "
+            android:layout_alignParentRight="true"
+            android:checked="false"
+            android:layout_margin="8dp" />
+
         <TextView
             android:id="@+id/tv_shop_name"
             android:layout_width="match_parent"
@@ -34,18 +45,17 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/tv_rate"
+            android:id="@+id/tv_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_star_rate"
             android:drawablePadding="4dp"
             android:layout_below="@+id/tv_shop_name"
             android:paddingHorizontal="16dp"
             android:layout_marginBottom="16dp"
-            android:text="4.5"
+            android:text="45m"
             android:fontFamily="@font/poppins_regular"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/blk400"
             android:gravity="center"
             android:includeFontPadding="false"/>
 

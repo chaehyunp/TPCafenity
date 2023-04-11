@@ -1,7 +1,10 @@
 package com.ch96.tpcafenity.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.adapters.ViewPagerShopAdapter
@@ -13,7 +16,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 class ShopInfoActivity : AppCompatActivity() {
 
     val binding:ActivityShopInfoBinding by lazy { ActivityShopInfoBinding.inflate(layoutInflater) }
-    private val tabTextList = listOf("매장정보", "리뷰")
+    private val tabTextList = listOf("매장정보", "카프니티 리뷰")
+
+    //아답터에서 받아온 주소 변수
+    var place_url:String ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -23,21 +29,13 @@ class ShopInfoActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.icon_action_back)
 
-        val shopAdapter = ViewPagerShopAdapter(this)
+        binding.pager.adapter = ViewPagerShopAdapter(this)
 
-        shopAdapter.addFragment(TabShopDetailFragment())
-        shopAdapter.addFragment(TabShopReviewFragment())
-        
-        binding.pager.adapter = shopAdapter
-        binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-            }
-        })
-        
         TabLayoutMediator(binding.layoutTab, binding.pager) { tab, position ->
             tab.text = tabTextList[position]
-        }
+        }.attach()
+
+        place_url = intent.getStringExtra("place_url")
     }
 
     override fun onSupportNavigateUp(): Boolean {

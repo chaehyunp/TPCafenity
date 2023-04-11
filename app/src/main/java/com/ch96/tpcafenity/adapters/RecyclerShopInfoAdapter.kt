@@ -5,10 +5,13 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.activities.ShopInfoActivity
 import com.ch96.tpcafenity.databinding.RecyclerItemShopInfoBinding
+import com.ch96.tpcafenity.fragments.TabListFragment
 import com.ch96.tpcafenity.model.Place
 
 
@@ -24,13 +27,19 @@ class RecyclerShopInfoAdapter (var context: Context, var documents:MutableList<P
         val place:Place = documents[position]
 
         holder.binding.tvShopName.text = place.place_name
-        holder.binding.tvRate.text = "${place.distance}m"
+        holder.binding.tvDistance.text = "${place.distance}m"
 
         holder.binding.root.setOnClickListener {
             val intent = Intent(context, ShopInfoActivity::class.java)
             intent.putExtra("place_name", place.place_name)
-            intent.putExtra("place_", place.place_url)
+            intent.putExtra("place_url", place.place_url)
             context.startActivity(intent)
+        }
+
+        holder.binding.toggleMark.setOnCheckedChangeListener { compoundButton, b ->
+            if (b) {
+                Toast.makeText(context, "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(context, "즐겨찾기가 해제되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
     }

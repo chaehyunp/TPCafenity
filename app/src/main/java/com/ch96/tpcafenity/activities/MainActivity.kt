@@ -20,6 +20,7 @@ import com.ch96.tpcafenity.fragments.AccountFragment
 import com.ch96.tpcafenity.fragments.CommunityFragment
 import com.ch96.tpcafenity.fragments.HomeFragment
 import com.ch96.tpcafenity.fragments.InterestsFragment
+import com.ch96.tpcafenity.fragments.TabListFragment
 //import com.ch96.tpcafenity.fragments.TabListFragment
 import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
 import com.ch96.tpcafenity.network.RetrofitHelper
@@ -76,8 +77,6 @@ class MainActivity : AppCompatActivity() {
         if(checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
             permissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         } else requestMyLocation()
-
-        Log.i("what_000","$searchPlaceResponse")
 
     }
 
@@ -136,7 +135,9 @@ class MainActivity : AppCompatActivity() {
                     response: Response<KakaoSearchPlaceResponse>
                 ) {
                     searchPlaceResponse = response.body()
-                    Log.i("what_searchPlaceResponse", "$searchPlaceResponse")
+                    //Log.i("what_searchPlaceResponse", "$searchPlaceResponse")
+
+                    supportFragmentManager.beginTransaction().replace(R.id.container_fragment, TabListFragment()).commit()
                 }
 
                 override fun onFailure(call: Call<KakaoSearchPlaceResponse>, t: Throwable) {
