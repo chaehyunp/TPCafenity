@@ -101,21 +101,16 @@ class NewWriteActivity : AppCompatActivity() {
             retrofitService.savePost(communityPost).enqueue(object : Callback<String> {
                 @SuppressLint("ResourceType")
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-
                     Toast.makeText(this@NewWriteActivity, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show()
-                    //Log.i("what_post","$res")
-
                     //커뮤니티로 다시 이동
                     finish()
                 }
-
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Toast.makeText(this@NewWriteActivity, "게시물 저장에 실패했습니다.", Toast.LENGTH_SHORT).show()
                     Log.i("what", "${t.message}")
                 }
             })
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

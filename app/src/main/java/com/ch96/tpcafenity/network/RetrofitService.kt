@@ -1,10 +1,8 @@
 package com.ch96.tpcafenity.network
 
-import android.content.ClipData.Item
-import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.model.CommunityList
 import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
-import com.ch96.tpcafenity.model.UserAccount
+import com.ch96.tpcafenity.model.Place
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -47,6 +45,16 @@ interface RetrofitService {
     //DB에서 게시글 받아오기
     @GET("Cafenity/getCommunityPosts.php")
     fun getCommunityPosts():Call<ArrayList<CommunityList>>
+
+    //즐겨찾기 DB에 저장
+    @Multipart
+    @POST("Cafenity/markedShop.php")
+    fun saveMark(@PartMap markedShop : Map<String, String>):Call<String>
+
+    //서버 DB에서 특정 즐겨찾기를 삭제
+    @GET("Cafenity/deleteMarkedShop.php")
+    fun deleteMark(@Query("no") no: String?): Call<String?>?
+
 
     //Kakao 장소 검색 API
     @Headers("Authorization: KakaoAK ddbb92f9f90921d871078f7bed4f5369")
