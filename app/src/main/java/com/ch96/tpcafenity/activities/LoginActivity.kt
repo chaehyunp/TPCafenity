@@ -7,10 +7,9 @@ import android.util.Log
 import android.widget.Toast
 import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.databinding.ActivityLoginBinding
-import com.ch96.tpcafenity.model.UserAccount
+import com.ch96.tpcafenity.model.LoginUserData
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
-import com.kakao.util.maps.helper.Utility
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,20 +53,25 @@ class LoginActivity : AppCompatActivity() {
         //입력한 회원정보와 일치하는 정보가 DB에 있는지 확인
         val retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
-        retrofitService.loginEmailAccount(emailUser).enqueue(object : Callback<String>{
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+        retrofitService.loginEmailAccount(emailUser).enqueue(object : Callback<MutableList<LoginUserData>>{
+            override fun onResponse(call: Call<MutableList<LoginUserData>>, response: Response<MutableList<LoginUserData>>) {
                 var res = response.body()
-//                Log.i("what_loginCheck", "$res")
+
                 if (res != null) {
                     //전역변수에 유저 닉네임 저장
-                    GV.loginUserNick = res
-                    Toast.makeText(this@LoginActivity, "반갑습니다!", Toast.LENGTH_SHORT).show()
+                    GV.loginUserNo = res[0].no
+                    GV.loginUserNick = res[0].nick
+
+                    Log.i("what_login", "${GV.loginUserNo}, ${GV.loginUserNick}")
+
+                    Toast.makeText(this@LoginActivity, "${GV.loginUserNick}님, 반갑습니다! ", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
                 } else Toast.makeText(this@LoginActivity, "일치하는 회원정보가 없습니다.", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<LoginUserData>>, t: Throwable) {
+                Log.i("what_login_failed","$t")
             }
         })
 

@@ -86,6 +86,8 @@ class NewWriteActivity : AppCompatActivity() {
         communityPost["text"] = binding.etText.text.toString()
         communityPost["imgPath"] = "null"
 
+        Log.i("what_marked", "$communityPost")
+
         //postTag, title, text 필수 기입
         if(communityPost["title"] == "" || communityPost["text"] == "")
             Toast.makeText(this, "제목 또는 내용이 비어있습니다.", Toast.LENGTH_SHORT).show()
@@ -107,7 +109,7 @@ class NewWriteActivity : AppCompatActivity() {
                 }
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Toast.makeText(this@NewWriteActivity, "게시물 저장에 실패했습니다.", Toast.LENGTH_SHORT).show()
-                    Log.i("what", "${t.message}")
+                    Log.i("what_savepost_failed", "${t.message}")
                 }
             })
         }

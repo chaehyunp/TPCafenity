@@ -2,12 +2,14 @@ package com.ch96.tpcafenity.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.activities.ShopInfoActivity
 import com.ch96.tpcafenity.databinding.RecyclerItemShopInfoBinding
@@ -22,7 +24,6 @@ import retrofit2.Response
 
 class RecyclerShopInfoAdapter (var context: Context, var documents:MutableList<Place>): Adapter<RecyclerShopInfoAdapter.VH>() {
     inner class VH(var binding: RecyclerItemShopInfoBinding): ViewHolder(binding.root)
-    var baseUrl:String = "http://testhue96.dothome.co.kr/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH
     = VH(RecyclerItemShopInfoBinding.inflate(LayoutInflater.from(context), parent, false))
@@ -46,24 +47,27 @@ class RecyclerShopInfoAdapter (var context: Context, var documents:MutableList<P
             if (b) {
                 //DB로 넘길 데이터 (MutableList -> MutableMap)
                 var markedShop = mutableMapOf<String, String>()
-                markedShop["id"] = documents[0].toString()
-                markedShop["place_name"] = documents[1].toString()
-                markedShop["phone"] = documents[2].toString()
-                markedShop["address_name"] = documents[3].toString()
-                markedShop["road_address_name"] = documents[4].toString()
-                markedShop["x"] = documents[5].toString()
-                markedShop["y"] = documents[6].toString()
-                markedShop["place_url"] = documents[7].toString()
-                markedShop["distance"] = documents[8].toString()
+                markedShop["id"] = documents[position].id
+                markedShop["place_name"] = documents[position].place_name
+                markedShop["phone"] = documents[position].phone
+                markedShop["address_name"] = documents[position].address_name
+                markedShop["road_address_name"] = documents[position].road_address_name
+                markedShop["x"] = documents[position].x
+                markedShop["y"] = documents[position].y
+                markedShop["place_url"] = documents[position].place_url
+                markedShop["distance"] = documents[position].distance
 
-                val retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
+                Log.i("what_marked", "$markedShop")
+
+                val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
                 val retrofitService = retrofit.create(RetrofitService::class.java)
-                retrofitService.saveMark(markedShop).enqueue(object : Callback<String>{
+                retrofitService.saveMarkedShop(markedShop).enqueue(object : Callback<String>{
                     override fun onResponse(call: Call<String>, response: Response<String>) {
                         Toast.makeText(context, "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show()
                     }
                     override fun onFailure(call: Call<String>, t: Throwable) {
                         Toast.makeText(context, "즐겨찾기 추가가 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        Log.i("what_marked_failed", "$t")
                     }
                 })
             } else {
@@ -71,14 +75,14 @@ class RecyclerShopInfoAdapter (var context: Context, var documents:MutableList<P
 //                val retrofitService = retrofit.create(RetrofitService::class.java)
 //                retrofitService.deleteMark("").enqueue(object : Callback<String>{
 //                    override fun onResponse(call: Call<String>, response: Response<String>) {
-//                        TODO("Not yet implemented")
+//                        Toast.makeText(context, "즐겨찾기가 해제되었습니다.", Toast.LENGTH_SHORT).show()
 //                    }
 //
 //                    override fun onFailure(call: Call<String>, t: Throwable) {
 //                        TODO("Not yet implemented")
 //                    }
 //                })
-                Toast.makeText(context, "즐겨찾기가 해제되었습니다.", Toast.LENGTH_SHORT).show()
+
             }
         }
 

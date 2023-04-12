@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.databinding.ActivityMainBinding
 import com.ch96.tpcafenity.fragments.AccountFragment
@@ -23,6 +24,7 @@ import com.ch96.tpcafenity.fragments.InterestsFragment
 import com.ch96.tpcafenity.fragments.TabListFragment
 //import com.ch96.tpcafenity.fragments.TabListFragment
 import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
+import com.ch96.tpcafenity.model.Place
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -126,17 +128,14 @@ class MainActivity : AppCompatActivity() {
     private fun searchPlace() {
 
         //REST API
-        val retrofit = RetrofitHelper.getRetrofitInstance("https://dapi.kakao.com")
+        val retrofit = RetrofitHelper.getRetrofitInstance(GV.kakaoUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
         retrofitService.searchPlace(categoryCode, myLocation?.latitude.toString(), myLocation?.longitude.toString())
             .enqueue(object:Callback<KakaoSearchPlaceResponse>{
                 override fun onResponse(
-                    call: Call<KakaoSearchPlaceResponse>,
-                    response: Response<KakaoSearchPlaceResponse>
+                    call: Call<KakaoSearchPlaceResponse>, response: Response<KakaoSearchPlaceResponse>
                 ) {
                     searchPlaceResponse = response.body()
-                    //Log.i("what_searchPlaceResponse", "$searchPlaceResponse")
-
                     supportFragmentManager.beginTransaction().replace(R.id.container_fragment, TabListFragment()).commit()
                 }
 
@@ -146,6 +145,7 @@ class MainActivity : AppCompatActivity() {
 
             })
     }
+
 
     //Bottom navigation - fragment
     private fun setFragment(tag:String, fragment: Fragment) {

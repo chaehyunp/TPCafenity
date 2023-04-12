@@ -1,9 +1,11 @@
 package com.ch96.tpcafenity
 
-import com.ch96.tpcafenity.model.UserAccount
-
 class GV {
     companion object {
         var loginUserNick:String ?= null
+        var loginUserNo:String ?= null
+
+        var baseUrl:String = "http://testhue96.dothome.co.kr/"
+        var kakaoUrl:String = "https://dapi.kakao.com"
     }
 }

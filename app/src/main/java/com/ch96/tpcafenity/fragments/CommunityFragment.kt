@@ -46,7 +46,6 @@ class CommunityFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         loadData()
-        //Toast.makeText(requireContext(), "ddd", Toast.LENGTH_SHORT).show()
     }
 
     private fun clickFabWrite() {
@@ -66,10 +65,10 @@ class CommunityFragment : Fragment() {
                 var res = response.body()
                 res?.reverse()
                 binding.recycler.adapter = ListCommunityAdapter(requireContext(), res!!)
-                Log.i("what_post", "$res")
+                //Log.i("what_post", "$res")
             }
             override fun onFailure(call: Call<ArrayList<CommunityList>>, t: Throwable) {
-                Log.i("what_post", "$t")
+                Log.i("what_post_failed", "$t")
             }
         })
     }

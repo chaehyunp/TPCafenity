@@ -2,6 +2,7 @@ package com.ch96.tpcafenity.network
 
 import com.ch96.tpcafenity.model.CommunityList
 import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
+import com.ch96.tpcafenity.model.LoginUserData
 import com.ch96.tpcafenity.model.Place
 import retrofit2.Call
 import retrofit2.http.Field
@@ -35,21 +36,25 @@ interface RetrofitService {
     //로그인 - 입력한 계정 정보가 DB에 있는지 확인, 해당 정보 받아오기
     @Multipart
     @POST("Cafenity/loginEmailAccount.php")
-    fun loginEmailAccount(@PartMap emailUser : Map<String, String>):Call<String>
+    fun loginEmailAccount(@PartMap emailUser : Map<String, String>):Call<MutableList<LoginUserData>>
 
     //작성한 게시글 DB에 저장
     @Multipart
-    @POST("Cafenity/communityPost.php")
+    @POST("Cafenity/saveCommunityPost.php")
     fun savePost(@PartMap communityPost : Map<String, String>):Call<String>
 
     //DB에서 게시글 받아오기
     @GET("Cafenity/getCommunityPosts.php")
-    fun getCommunityPosts():Call<ArrayList<CommunityList>>
+    fun getCommunityPosts() : Call<ArrayList<CommunityList>>
 
     //즐겨찾기 DB에 저장
     @Multipart
-    @POST("Cafenity/markedShop.php")
-    fun saveMark(@PartMap markedShop : Map<String, String>):Call<String>
+    @POST("Cafenity/saveMarkedShop.php")
+    fun saveMarkedShop(@PartMap markedShop : Map<String, String>):Call<String>
+
+    //DB에서 즐겨찾기 받아오기
+    @GET("Cafenity/getMarkedShop.php")
+    fun getMarkedShop(@Query("accountNo") accountNo : String):Call<MutableList<Place>>
 
     //서버 DB에서 특정 즐겨찾기를 삭제
     @GET("Cafenity/deleteMarkedShop.php")
