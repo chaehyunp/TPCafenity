@@ -37,7 +37,7 @@ class RecyclerMarkedShopAdapter (var context: Context, var documents:MutableList
         holder.binding.toggleMark.isChecked = !holder.binding.toggleMark.isChecked
 
         val place:Place = documents[position]
-        Log.i("what _place", "$place")
+        Log.i("what_place", "$place")
         holder.binding.tvShopName.text = place.place_name
 
         holder.binding.root.setOnClickListener {
@@ -48,15 +48,24 @@ class RecyclerMarkedShopAdapter (var context: Context, var documents:MutableList
         }
 
         holder.binding.toggleMark.setOnCheckedChangeListener { compoundButton, b ->
-            if (b) {
-                //delete
-            } else {
+            if (!b) {
+                //즐겨찾기 삭제
+                val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
+                val retrofitService = retrofit.create(RetrofitService::class.java)
+                retrofitService.deleteMark(GV.loginUserNo, documents[position].id).enqueue(object : Callback<String> {
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        Toast.makeText(context, "즐겨찾기가 해제되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
 
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Toast.makeText(context, "즐겨찾기 해제가 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        Log.i("what_del_marked_failed", "$t")
+                    }
+                })
             }
         }
-
     }
-
-
-
 }
+
+
+

@@ -78,55 +78,87 @@
 
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/iv_added1"
+            <androidx.cardview.widget.CardView
                 android:focusable="true"
                 android:clickable="true"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:background="@drawable/bg_btn_line"
                 android:layout_marginRight="8dp"
-                android:visibility="gone"/>
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp">
 
-            <ImageView
-                android:id="@+id/iv_added2"
-                android:focusable="true"
-                android:clickable="true"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:background="@drawable/bg_btn_line"
-                android:layout_marginRight="8dp"
-                android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/iv_added1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-            <ImageView
-                android:id="@+id/iv_added3"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/bg_btn_line"
-                android:clickable="true"
-                android:focusable="true"
-                android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:id="@+id/iv_added4"
+            <androidx.cardview.widget.CardView
                 android:focusable="true"
                 android:clickable="true"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:background="@drawable/bg_btn_line"
                 android:layout_marginRight="8dp"
-                android:visibility="gone"/>
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp">
 
-            <ImageView
-                android:id="@+id/iv_added5"
+                <ImageView
+                    android:id="@+id/iv_added2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:focusable="true"
                 android:clickable="true"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:background="@drawable/bg_btn_line"
                 android:layout_marginRight="8dp"
-                android:visibility="gone"/>
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/iv_added3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginRight="8dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/iv_added4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginRight="8dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/iv_added5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </androidx.cardview.widget.CardView>
+
+
 
         </LinearLayout>
 

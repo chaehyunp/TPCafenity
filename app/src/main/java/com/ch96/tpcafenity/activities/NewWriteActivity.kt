@@ -2,8 +2,10 @@ package com.ch96.tpcafenity.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -16,6 +18,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.databinding.ActivityNewWriteBinding
 import com.ch96.tpcafenity.fragments.CommunityFragment
@@ -30,8 +33,14 @@ class NewWriteActivity : AppCompatActivity() {
 
     val binding:ActivityNewWriteBinding by lazy { ActivityNewWriteBinding.inflate(layoutInflater) }
     var baseUrl:String = "http://testhue96.dothome.co.kr/"
+
+    //스피너
     lateinit var postTag:String
     var postTagNum:Int = 0
+
+    //이미지
+    var images:MutableList<Uri> ?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -54,35 +63,39 @@ class NewWriteActivity : AppCompatActivity() {
                 postTagNum = p2
                 postTag = data[postTagNum]
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
-
         }
 
         binding.tvDone.setOnClickListener { clickDone() }
         binding.btnAddImg.setOnClickListener { clickAddImage() }
     }
 
-    fun clickAddImage() {
+    //이미지 선택 결과 런처
+    var imagePickLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ActivityResultCallback {
+        if (it.resultCode != RESULT_CANCELED) {
+            val intent = it.data
+            var clipData = intent?.clipData  //다중데이터
 
-        pickMediaLauncher.launch(PickVisualMediaRequest())
+            for(i in 0 until clipData?.itemCount!!) images?.add(clipData.getItemAt(i).uri)
+            //binding.layoutAddImg.adapter
+        }
+    })
+
+    fun clickAddImage() {
+        val intent = Intent(MediaStore.ACTION_PICK_IMAGES).putExtra(MediaStore.EXTRA_PICK_IMAGES_MAX, 5)
+        imagePickLauncher.launch(intent)
+
 
     }
 
-    var pickMediaLauncher:ActivityResultLauncher<PickVisualMediaRequest> = registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(),
-        ActivityResultCallback {
-            binding.ivAdded1.visibility = View.VISIBLE
-            Glide.with(this).load(it).into(binding.ivAdded1) //이미지뷰에 이미지가 보이지 않음
-        })
-
     private fun clickDone() {
 
-        //서버에 전송할 데이터 [title, text, imgPath]
+        //서버에 전송할 데이터 [postTag,title,nick,text,imgPath]
         val communityPost = mutableMapOf<String, String>()
         communityPost["postTag"] = postTag
         communityPost["title"] = binding.etTitle.text.toString()
+        communityPost["nick"] = GV.loginUserNick ?: ""
         communityPost["text"] = binding.etText.text.toString()
         communityPost["imgPath"] = "null"
 

@@ -54,12 +54,11 @@ interface RetrofitService {
 
     //DB에서 즐겨찾기 받아오기
     @GET("Cafenity/getMarkedShop.php")
-    fun getMarkedShop(@Query("accountNo") accountNo : String):Call<MutableList<Place>>
+    fun getMarkedShop(@Query("accountNo") accountNo:String):Call<MutableList<Place>>
 
     //서버 DB에서 특정 즐겨찾기를 삭제
-    @GET("Cafenity/deleteMarkedShop.php")
-    fun deleteMark(@Query("no") no: String?): Call<String?>?
-
+    @GET("Cafenity/deleteMark.php")
+    fun deleteMark(@Query("accountNo") accountNo:String?, @Query("id") id:String?): Call<String>
 
     //Kakao 장소 검색 API
     @Headers("Authorization: KakaoAK ddbb92f9f90921d871078f7bed4f5369")

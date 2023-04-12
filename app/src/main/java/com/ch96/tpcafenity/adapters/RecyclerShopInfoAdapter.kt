@@ -44,21 +44,22 @@ class RecyclerShopInfoAdapter (var context: Context, var documents:MutableList<P
         }
 
         holder.binding.toggleMark.setOnCheckedChangeListener { compoundButton, b ->
+
+            //DB로 넘길 데이터 (MutableList -> MutableMap)
+            var markedShop = mutableMapOf<String, String>()
+            markedShop["accountNo"] = GV.loginUserNo.toString()
+            markedShop["id"] = documents[position].id
+            markedShop["place_name"] = documents[position].place_name
+            markedShop["phone"] = documents[position].phone
+            markedShop["address_name"] = documents[position].address_name
+            markedShop["road_address_name"] = documents[position].road_address_name
+            markedShop["x"] = documents[position].x
+            markedShop["y"] = documents[position].y
+            markedShop["place_url"] = documents[position].place_url
+            markedShop["distance"] = documents[position].distance
+            Log.i("what_marked", "$markedShop")
+
             if (b) {
-                //DB로 넘길 데이터 (MutableList -> MutableMap)
-                var markedShop = mutableMapOf<String, String>()
-                markedShop["id"] = documents[position].id
-                markedShop["place_name"] = documents[position].place_name
-                markedShop["phone"] = documents[position].phone
-                markedShop["address_name"] = documents[position].address_name
-                markedShop["road_address_name"] = documents[position].road_address_name
-                markedShop["x"] = documents[position].x
-                markedShop["y"] = documents[position].y
-                markedShop["place_url"] = documents[position].place_url
-                markedShop["distance"] = documents[position].distance
-
-                Log.i("what_marked", "$markedShop")
-
                 val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
                 val retrofitService = retrofit.create(RetrofitService::class.java)
                 retrofitService.saveMarkedShop(markedShop).enqueue(object : Callback<String>{
@@ -71,21 +72,19 @@ class RecyclerShopInfoAdapter (var context: Context, var documents:MutableList<P
                     }
                 })
             } else {
-//                val retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
-//                val retrofitService = retrofit.create(RetrofitService::class.java)
-//                retrofitService.deleteMark("").enqueue(object : Callback<String>{
-//                    override fun onResponse(call: Call<String>, response: Response<String>) {
-//                        Toast.makeText(context, "즐겨찾기가 해제되었습니다.", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                    override fun onFailure(call: Call<String>, t: Throwable) {
-//                        TODO("Not yet implemented")
-//                    }
-//                })
-
+                val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
+                val retrofitService = retrofit.create(RetrofitService::class.java)
+                retrofitService.deleteMark(GV.loginUserNo, markedShop["id"]).enqueue(object : Callback<String>{
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        Toast.makeText(context, "즐겨찾기가 해제되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Toast.makeText(context, "즐겨찾기 해제가 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        Log.i("what_del_marked_failed", "$t")
+                    }
+                })
             }
         }
-
     }
 
 

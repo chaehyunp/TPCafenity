@@ -26,7 +26,12 @@ class ListCommunityAdapter (var context: Context, var items:ArrayList<CommunityL
         holder.binding.tvDate.text = item.postDate
 
         holder.binding.root.setOnClickListener {
-            context.startActivity(Intent(context, PostActivity::class.java))
+            val intent = Intent(context, PostActivity::class.java)
+            intent.putExtra("title", item.title)
+            intent.putExtra("nick", item.nick)
+            intent.putExtra("date", item.postDate)
+            intent.putExtra("text", item.text)
+            context.startActivity(intent)
         }
 
     }
