@@ -76,9 +76,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         //위치정보 제공 동적퍼미션 (PermissionDenied -> launch permission, PermissionGranted -> request Location)
-        if(checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
             permissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
-        } else requestMyLocation()
+        else if (checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED)
+            permissionLauncher.launch(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+        else requestMyLocation()
 
     }
 
@@ -99,11 +101,10 @@ class MainActivity : AppCompatActivity() {
         val request = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000).build()
 
         //실시간 위치정보 갱신 요청 (퍼미션 받았는지 확인)
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED) return
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) return
 
         locationProvider.requestLocationUpdates(request, locationCallback, Looper.getMainLooper())
     }

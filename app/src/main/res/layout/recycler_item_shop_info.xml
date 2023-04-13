@@ -20,14 +20,17 @@
 
         <ToggleButton
             android:id="@+id/toggle_mark"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/selector_mark"
-            android:textOn=" "
-            android:textOff=" "
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_alignParentRight="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/selector_mark"
             android:checked="false"
-            android:layout_margin="8dp" />
+            android:textOff=" "
+            android:textOn=" " />
 
         <TextView
             android:id="@+id/tv_shop_name"
@@ -41,7 +44,7 @@
             android:text="테스트문장테스트문장테스트문장"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:includeFontPadding="false"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/black"/>
 
         <TextView
@@ -54,7 +57,7 @@
             android:layout_marginBottom="16dp"
             android:text="45m"
             android:fontFamily="@font/poppins_regular"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textColor="@color/blk400"
             android:gravity="center"
             android:includeFontPadding="false"/>

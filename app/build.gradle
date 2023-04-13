@@ -19,7 +19,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -56,6 +57,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+
+    //Kakao Login library..
+    implementation 'com.kakao.sdk:v2-user:2.13.0' // SDK + 카카오 로그인
 
     //Kakao Map SDK
     implementation files('libs/libDaumMapAndroid.jar')

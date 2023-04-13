@@ -3,6 +3,7 @@ package com.ch96.tpcafenity.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,11 +17,14 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
+import com.ch96.tpcafenity.adapters.RecyclerSelectedImageAdapter
 import com.ch96.tpcafenity.databinding.ActivityNewWriteBinding
+import com.ch96.tpcafenity.databinding.RecyclerItemNewWriteBinding
 import com.ch96.tpcafenity.fragments.CommunityFragment
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
@@ -39,7 +43,9 @@ class NewWriteActivity : AppCompatActivity() {
     var postTagNum:Int = 0
 
     //이미지
-    var images:MutableList<Uri> ?= null
+    var images:MutableList<Uri> = mutableListOf()
+    var imageAdapter = RecyclerSelectedImageAdapter(this, images)
+    var imageSize = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,12 +57,13 @@ class NewWriteActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.icon_action_close)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        //스피너 아답터 설정
         var data = resources.getStringArray(R.array.post_tag)
-        var adapter = ArrayAdapter<String>(this, R.layout.spinner_item_posttag,data)
+        var spinnerAdapter = ArrayAdapter<String>(this, R.layout.spinner_item_posttag,data)
 
-        binding.spinner.adapter = adapter
+        binding.spinner.adapter = spinnerAdapter
         binding.spinner.setSelection(0)
-        adapter.setDropDownViewResource(R.layout.spiner_dropdown_item_posttag)
+        spinnerAdapter.setDropDownViewResource(R.layout.spiner_dropdown_item_posttag)
         binding.spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 //Log.i("what_spinner", "$p0, $p1, $p2, $p3")
@@ -67,26 +74,47 @@ class NewWriteActivity : AppCompatActivity() {
             }
         }
 
+        binding.recycler.adapter = imageAdapter
+
+
         binding.tvDone.setOnClickListener { clickDone() }
         binding.btnAddImg.setOnClickListener { clickAddImage() }
+
+    }
+
+    fun clickedItem(pos:Int){
+        images.removeAt(pos)
+        imageAdapter.notifyDataSetChanged()
+        imageSize--
+        binding.tvPhotoNum.text= "$imageSize"
     }
 
     //이미지 선택 결과 런처
+    @SuppressLint("NotifyDataSetChanged")
     var imagePickLauncher:ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ActivityResultCallback {
         if (it.resultCode != RESULT_CANCELED) {
-            val intent = it.data
-            var clipData = intent?.clipData  //다중데이터
+            var intent = it.data
+            var clipData = intent?.clipData
 
-            for(i in 0 until clipData?.itemCount!!) images?.add(clipData.getItemAt(i).uri)
-            //binding.layoutAddImg.adapter
+            if(clipData != null) {
+                var size = clipData.itemCount
+                for(i in 0 until size!!) images?.add(clipData?.getItemAt(i)?.uri!!)
+                imageSize += size
+                binding.tvPhotoNum.text = "$imageSize"
+
+            } else {
+                images.add(intent?.data!!)
+                imageSize += 1
+                binding.tvPhotoNum.text = "$imageSize"
+            }
+            imageAdapter.notifyDataSetChanged()
         }
     })
 
+
     fun clickAddImage() {
-        val intent = Intent(MediaStore.ACTION_PICK_IMAGES).putExtra(MediaStore.EXTRA_PICK_IMAGES_MAX, 5)
+        var intent = Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         imagePickLauncher.launch(intent)
-
-
     }
 
     private fun clickDone() {
