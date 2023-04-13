@@ -24,7 +24,7 @@ class RecyclerSelectedImageAdapter (var context:Context, var images:MutableList<
         Glide.with(context).load(images.get(position)).into(holder.binding.ivAdded)
 
         holder.binding.ivRemove.setOnClickListener {
-            (context as NewWriteActivity).clickedItem(position)
+            (context as NewWriteActivity).clickedDeleteItem(position)
         }
 
     }

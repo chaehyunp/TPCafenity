@@ -2,6 +2,7 @@ package com.ch96.tpcafenity.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +20,9 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestCoordinator.RequestState
 import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.adapters.RecyclerSelectedImageAdapter
@@ -28,10 +31,16 @@ import com.ch96.tpcafenity.databinding.RecyclerItemNewWriteBinding
 import com.ch96.tpcafenity.fragments.CommunityFragment
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.io.File
 
 class NewWriteActivity : AppCompatActivity() {
 
@@ -46,6 +55,7 @@ class NewWriteActivity : AppCompatActivity() {
     var images:MutableList<Uri> = mutableListOf()
     var imageAdapter = RecyclerSelectedImageAdapter(this, images)
     var imageSize = 0
+    var imgPath:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +92,7 @@ class NewWriteActivity : AppCompatActivity() {
 
     }
 
-    fun clickedItem(pos:Int){
+    fun clickedDeleteItem(pos:Int){
         images.removeAt(pos)
         imageAdapter.notifyDataSetChanged()
         imageSize--
@@ -108,8 +118,23 @@ class NewWriteActivity : AppCompatActivity() {
                 binding.tvPhotoNum.text = "$imageSize"
             }
             imageAdapter.notifyDataSetChanged()
+
+            //uri -> path
+            var uri = it.data?.data
+            imgPath = getFilePathFormUri(uri!!)
         }
     })
+
+    //uri -> path 메소드
+    fun getFilePathFormUri(uri:Uri):String {
+        val proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        val loader = CursorLoader(this, uri, proj, null, null, null)
+        val cursor = loader.loadInBackground()!!
+        var columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        var result = cursor.getString(columnIndex)
+        return result
+    }
 
 
     fun clickAddImage() {
@@ -125,9 +150,6 @@ class NewWriteActivity : AppCompatActivity() {
         communityPost["title"] = binding.etTitle.text.toString()
         communityPost["nick"] = GV.loginUserNick ?: ""
         communityPost["text"] = binding.etText.text.toString()
-        communityPost["imgPath"] = "null"
-
-        Log.i("what_marked", "$communityPost")
 
         //postTag, title, text 필수 기입
         if(communityPost["title"] == "" || communityPost["text"] == "")
@@ -140,9 +162,16 @@ class NewWriteActivity : AppCompatActivity() {
             val retrofit: Retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
             val retrofitService = retrofit.create(RetrofitService::class.java)
 
-            //DB 저장하기
-            retrofitService.savePost(communityPost).enqueue(object : Callback<String> {
-                @SuppressLint("ResourceType")
+            //이미지가 있으면
+            var filePart:MultipartBody.Part ?= null
+            if (imgPath != "") {
+                val file = File(imgPath)
+                val mediaType = "image/*".toMediaType()
+                val body = file.toString().toRequestBody(mediaType)
+                filePart = MultipartBody.Part.createFormData("img", file.name, body)
+            }
+
+            retrofitService.savePost(communityPost, filePart).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     Toast.makeText(this@NewWriteActivity, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show()
                     //커뮤니티로 다시 이동
@@ -152,6 +181,7 @@ class NewWriteActivity : AppCompatActivity() {
                     Toast.makeText(this@NewWriteActivity, "게시물 저장에 실패했습니다.", Toast.LENGTH_SHORT).show()
                     Log.i("what_savepost_failed", "${t.message}")
                 }
+
             })
         }
     }
