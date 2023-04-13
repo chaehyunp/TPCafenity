@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.AccountFragment">
 
@@ -20,7 +21,9 @@
             android:id="@+id/civ"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/img_no_image"/>
+            android:src="@drawable/img_no_profile"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/blk800"/>
 
         <TextView
             android:id="@+id/tv_nick"
