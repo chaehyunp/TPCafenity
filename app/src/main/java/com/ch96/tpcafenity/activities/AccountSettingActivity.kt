@@ -29,8 +29,7 @@ class AccountSettingActivity : AppCompatActivity() {
 
     private fun clickLogout() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_logout, null)
-        val builder = AlertDialog.Builder(this)
-            .setView(dialogView)
+        val builder = AlertDialog.Builder(this).setView(dialogView)
 
         val logoutAlertDialog = builder.show()
 

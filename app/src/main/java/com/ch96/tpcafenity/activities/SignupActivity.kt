@@ -9,6 +9,7 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.databinding.ActivitySignupBinding
 import com.ch96.tpcafenity.network.RetrofitHelper
@@ -22,7 +23,6 @@ import retrofit2.Retrofit
 class SignupActivity : AppCompatActivity() {
 
     val binding:ActivitySignupBinding by lazy { ActivitySignupBinding.inflate(layoutInflater) }
-    var baseUrl:String = "http://testhue96.dothome.co.kr/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,20 +38,16 @@ class SignupActivity : AppCompatActivity() {
         inputError()
 
         //회원가입
-        binding.btnSignupActive.setOnClickListener { clickSignup() }
+        binding.tvSignupActive.setOnClickListener { clickSignup() }
 
     }
 
     //입력값 부적합할 경우 (허용 글자수 검사 / 이메일형태 검사 / 비밀번호 확인 검사)
     private fun inputError() {
-
-
         //닉네임 글자수 초과 및 특수문자 포함 여부
         binding.etNick.addTextChangedListener(object:TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
                 checkNick()
                 checkError()
             }
@@ -61,9 +57,7 @@ class SignupActivity : AppCompatActivity() {
         //비밀번호 글자수 초과 및 비밀번호 확인 문자 일치 여부
         binding.etPassword.addTextChangedListener(object:TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
                 if (binding.etPassword.length() > 15)
                     binding.layoutPassword.error = "비밀번호 글자수 최대 허용치를 초과했습니다."
                 else binding.layoutPassword.error = null
@@ -80,25 +74,17 @@ class SignupActivity : AppCompatActivity() {
         //이메일 형식 확인
         binding.etEmail.addTextChangedListener(object:TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-            
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
-
                 checkEmail()
                 checkError()
-
             }
         })
 
         //비밀번호 - 비밀번호 확인 문자 일치 여부
         binding.etPasswordConfirm.addTextChangedListener(object:TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
                 if (binding.etPasswordConfirm.text.toString()==(binding.etPassword.text.toString()))
                     binding.layoutPasswordConfirm.error = null
                 else binding.layoutPasswordConfirm.error = "비밀번호가 다릅니다."
@@ -117,26 +103,6 @@ class SignupActivity : AppCompatActivity() {
 
     }
 
-    //Error값이 null일 경우 && 모든 입력창에 입력되었을경우 -> 회원가입 버튼 활성화 메소드
-    private fun checkError() {
-
-        var errorNick = binding.layoutNick.error
-        var errorEmail = binding.layoutEmail.error
-        var errorPW = binding.layoutPassword.error
-        var errorPWC = binding.layoutPasswordConfirm.error
-
-        var nick = binding.etNick.text.toString()
-        var email = binding.etEmail.text.toString()
-        var password:String = binding.etPassword.text.toString()
-        var passwordConfirm:String = binding.etPassword.text.toString()
-
-        if (errorNick == null && errorEmail == null && errorPW == null && errorPWC == null
-            && nick != "" && email != "" && password != "" && passwordConfirm != "") {
-            binding.btnSignupDisabled.visibility = View.INVISIBLE
-            binding.btnSignupActive.visibility = View.VISIBLE
-        }
-    }
-
     private fun clickSignup() {
 
         //서버에 전송할 데이터 [nick, email, password]
@@ -145,7 +111,7 @@ class SignupActivity : AppCompatActivity() {
         emailUser["email"] = binding.etEmail.text.toString()
         emailUser["password"] = binding.etPassword.text.toString()
 
-        val retrofit:Retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
+        val retrofit:Retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
 
         //DB 저장하기
@@ -173,12 +139,31 @@ class SignupActivity : AppCompatActivity() {
 
     }
 
-    fun checkNick() {
+    //Error값이 null일 경우 && 모든 입력창에 입력되었을경우 -> 회원가입 버튼 활성화 메소드
+    private fun checkError() {
 
+        var errorNick = binding.layoutNick.error
+        var errorEmail = binding.layoutEmail.error
+        var errorPW = binding.layoutPassword.error
+        var errorPWC = binding.layoutPasswordConfirm.error
+
+        var nick = binding.etNick.text.toString()
+        var email = binding.etEmail.text.toString()
+        var password:String = binding.etPassword.text.toString()
+        var passwordConfirm:String = binding.etPassword.text.toString()
+
+        if (errorNick == null && errorEmail == null && errorPW == null && errorPWC == null
+            && nick != "" && email != "" && password != "" && passwordConfirm != "") {
+            binding.tvSignupDisabled.visibility = View.INVISIBLE
+            binding.tvSignupActive.visibility = View.VISIBLE
+        }
+    }
+
+    fun checkNick() {
         var nick = binding.etNick.text.toString()
 
         //입력한 회원정보와 일치하는 정보가 DB에 있는지 확인
-        val retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
+        val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
         retrofitService.checkNick(nick).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -188,19 +173,16 @@ class SignupActivity : AppCompatActivity() {
 
                 checkError()
             }
-
             override fun onFailure(call: Call<String>, t: Throwable) {
-
             }
         })
     }
 
     fun checkEmail() {
-
         var email = binding.etEmail.text.toString()
 
         //입력한 회원정보와 일치하는 정보가 DB에 있는지 확인
-        val retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
+        val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
         retrofitService.checkEmail(email).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -209,7 +191,6 @@ class SignupActivity : AppCompatActivity() {
                 else binding.layoutEmail.error = null
                 checkError()
             }
-
             override fun onFailure(call: Call<String>, t: Throwable) {
             }
         })

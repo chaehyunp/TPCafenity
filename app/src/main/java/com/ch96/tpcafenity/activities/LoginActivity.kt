@@ -1,9 +1,13 @@
 package com.ch96.tpcafenity.activities
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.databinding.ActivityLoginBinding
@@ -21,6 +25,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        //로그인 데이터 있으면 불러오기
+        restoreLoginData()
 
         // SKIP
         binding.btnSkip.setOnClickListener {
@@ -44,6 +51,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun clickLoginBtn() {
+        //소프트 키보드 없애기
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken,0)
 
         //서버에 전송할 데이터 [email, password]
         val emailUser = mutableMapOf<String, String>()
@@ -56,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
         retrofitService.loginEmailAccount(emailUser).enqueue(object : Callback<MutableList<LoginUserData>>{
             override fun onResponse(call: Call<MutableList<LoginUserData>>, response: Response<MutableList<LoginUserData>>) {
                 var res = response.body()
-
+                Log.i("what_res","$res")
                 if (res != null) {
                     //전역변수에 유저 닉네임 저장
                     GV.loginUserNo = res[0].no
@@ -85,13 +95,48 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun autoLogin() {
-        binding.radioBtnAutoLogin.isChecked()
+        if (binding.radioBtnAutoLogin.isChecked())  saveLoginData()
     }
     private fun saveId() {
-        binding.radioBtnSaveId.isChecked()
+        if (binding.radioBtnSaveId.isChecked()) saveLoginId()
     }
 
     private fun clickKakaoBtn() {}
     private fun clickGoogleBtn() {}
     private fun clickNaverBtn() {}
+
+    private fun saveLoginId() {
+        val pref = getSharedPreferences("pref", Activity.MODE_PRIVATE)
+        val editor = pref.edit()
+
+        val id = binding.etEmail.text.toString()
+
+        editor.putString("id", id)
+        editor.commit()
+    }
+
+    private fun saveLoginData() {
+        val pref = getSharedPreferences("pref", Activity.MODE_PRIVATE)
+        val editor = pref.edit()
+
+        val id = binding.etEmail.text.toString()
+        val pw = binding.etPw.text.toString()
+
+        editor.putString("id", id)
+        editor.putString("pw", pw)
+        editor.commit()
+    }
+
+    private  fun restoreLoginData() {
+        val pref = getSharedPreferences("pref", Activity.MODE_PRIVATE)
+        if(pref != null) {
+            val id = pref.getString("id", "")
+            val pw = pref.getString("pw", "")
+
+            binding.etEmail.text = Editable.Factory.getInstance().newEditable(id)
+            binding.etPw.text = Editable.Factory.getInstance().newEditable(pw)
+        }
+    }
+
+
 }

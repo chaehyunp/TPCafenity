@@ -2,6 +2,7 @@ package com.ch96.tpcafenity.network
 
 import com.ch96.tpcafenity.model.CommunityList
 import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
+import com.ch96.tpcafenity.model.LoginUserAccount
 import com.ch96.tpcafenity.model.LoginUserData
 import com.ch96.tpcafenity.model.Place
 import okhttp3.MultipartBody
@@ -40,15 +41,14 @@ interface RetrofitService {
     @POST("Cafenity/loginEmailAccount.php")
     fun loginEmailAccount(@PartMap emailUser : Map<String, String>):Call<MutableList<LoginUserData>>
 
-    //작성한 게시글 DB에 저장
-    @Multipart
-    @POST("Cafenity/saveCommunityPost.php")
-    fun savePost(@PartMap dataPat : Map<String, String>, filePart : MultipartBody.Part?):Call<String>
-
-
     //DB에서 게시글 받아오기
     @GET("Cafenity/getCommunityPosts.php")
     fun getCommunityPosts() : Call<ArrayList<CommunityList>>
+
+    //작성한 게시글 DB에 저장
+    @Multipart
+    @POST("Cafenity/saveCommunityPost.php")
+    fun savePost(@PartMap dataPat : Map<String, String>, filePart : MutableList<MultipartBody.Part>, fileSize : Int):Call<String>
 
     //즐겨찾기 DB에 저장
     @Multipart
@@ -62,6 +62,16 @@ interface RetrofitService {
     //서버 DB에서 특정 즐겨찾기를 삭제
     @GET("Cafenity/deleteMark.php")
     fun deleteMark(@Query("accountNo") accountNo:String?, @Query("id") id:String?): Call<String>
+
+    //DB에서 프로필 받아오기
+    @GET("Cafenity/getAccountProfile.php")
+    fun getAccountProfile(@Query("no") no:String?) : Call<MutableList<LoginUserAccount>>
+
+    //수정한 프로필 DB에 저장
+    @Multipart
+    @POST("Cafenity/saveEditedAccount.php")
+//    fun saveEditedAccount(@PartMap dataPat : Map<String, String>, filePart : MultipartBody.Part?):Call<String>
+    fun saveEditedAccount(@PartMap dataPat : Map<String, String>):Call<String>
 
     //Kakao 장소 검색 API
     @Headers("Authorization: KakaoAK ddbb92f9f90921d871078f7bed4f5369")
