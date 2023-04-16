@@ -163,7 +163,6 @@ class NewWriteActivity : AppCompatActivity() {
             communityPost["text"] = binding.etText.text.toString()
             communityPost["accountNo"] = GV.loginUserNo ?: ""
 
-
             //postTag, title, text 필수 기입
             if(communityPost["title"] == "" || communityPost["text"] == ""){
                 saveAlertDialog.dismiss()
@@ -190,18 +189,19 @@ class NewWriteActivity : AppCompatActivity() {
 
                 //이미지가 있으면
                 var filePart:MutableList<MultipartBody.Part> = mutableListOf()
-                if (imageSize != 0) {
+                if (imageSize != 0) {Log.i("what_image_size","$imageSize")
                     for (i in 0 until imageSize) {
                         val file = File(imgPath[i])
                         Log.i("what_path_i","${imgPath[i]}") ///storage/emulated/0/DCIM/zzang_gu/zzang_whithpanti.jpg
                         val body = file.toString().toRequestBody("image/*".toMediaType())
-                        Log.i("what_path_body","$body") //okhttp3.RequestBody$Companion$toRequestBody$2@834aa0b
-                        filePart[i] = MultipartBody.Part.createFormData("img$i", file.name, body)
-                        Log.i("what_file","${filePart[i]}")
+//                        filePart[i] = MultipartBody.Part.createFormData("img$i", file.name, body)
+//                        Log.i("what_file","${filePart[i]}")
+                        val part = MultipartBody.Part.createFormData("img$i", file.name, body)
+                        filePart.add(part)
+                        Log.i("what_part","$filePart")
                     }
                 }
-
-                retrofitService.savePost(communityPost, filePart, imageSize).enqueue(object : Callback<String> {
+                retrofitService.savePost(communityPost, filePart).enqueue(object : Callback<String> {
                     override fun onResponse(call: Call<String>, response: Response<String>) {
                         Toast.makeText(this@NewWriteActivity, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show()
                         //커뮤니티로 다시 이동

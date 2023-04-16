@@ -10,6 +10,7 @@ import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -48,7 +49,7 @@ interface RetrofitService {
     //작성한 게시글 DB에 저장
     @Multipart
     @POST("Cafenity/saveCommunityPost.php")
-    fun savePost(@PartMap dataPat : Map<String, String>, filePart : MutableList<MultipartBody.Part>, fileSize : Int):Call<String>
+    fun savePost(@PartMap dataPat : Map<String, String>, @Part filePart : MutableList<MultipartBody.Part>):Call<String>
 
     //즐겨찾기 DB에 저장
     @Multipart

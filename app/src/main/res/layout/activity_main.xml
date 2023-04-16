@@ -20,7 +20,8 @@
         app:itemBackground="@color/black"
         app:itemIconTint="@drawable/navi_click_color"
         app:itemTextColor="@drawable/navi_click_color"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/navi_menu" />
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/navi_menu"
+        app:itemIconSize="40dp"/>
 
 </LinearLayout>

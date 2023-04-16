@@ -27,7 +27,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //로그인 데이터 있으면 불러오기
-        restoreLoginData()
+//        updateAutoLoginRadioState()
+//        updateSaveEmailRadioState()
+//        if (binding.radioBtnAutoLogin.isChecked == true) {
+//            restoreLoginEmail()
+//            restoreLoginPw()
+//            clickLoginBtn()
+//        } else if (binding.radioBtnAutoLogin.isChecked == false && binding.radioBtnSaveId.isChecked == true)
+//            restoreLoginEmail()
 
         // SKIP
         binding.btnSkip.setOnClickListener {
@@ -40,10 +47,6 @@ class LoginActivity : AppCompatActivity() {
         //회원가입버튼
         binding.btnSignup.setOnClickListener { clickSignupBtn() }
 
-        //라디오버튼(자동로그인,아이디저장)
-        autoLogin()
-        saveId()
-
         //간편로그인
         binding.btnLoginKakao.setOnClickListener { clickKakaoBtn() }
         binding.btnLoginGoogle.setOnClickListener { clickGoogleBtn() }
@@ -54,6 +57,24 @@ class LoginActivity : AppCompatActivity() {
         //소프트 키보드 없애기
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken,0)
+
+        //라디오버튼(자동로그인,아이디저장)
+//        val autologinState = binding.radioBtnAutoLogin.isChecked
+//        val saveEmailState = binding.radioBtnSaveId.isChecked
+//        if (autologinState == true) {
+//            autoLoginRadioState(true)
+//            saveLoginEmail(binding.etEmail.toString())
+//            saveLoginPw(binding.etPw.toString())
+//
+//            if(saveEmailState != true) {
+//                binding.radioBtnSaveId.isChecked = !binding.radioBtnSaveId.isChecked
+//                saveEmailRadioState(true)
+//            }
+//        } else { //자동로그인 비활성화, 아이디저장만 하는 경우
+//                autoLoginRadioState(false)
+//                saveEmailRadioState(true)
+//                saveLoginEmail(binding.etEmail.toString())
+//        }
 
         //서버에 전송할 데이터 [email, password]
         val emailUser = mutableMapOf<String, String>()
@@ -94,47 +115,70 @@ class LoginActivity : AppCompatActivity() {
         startActivity(Intent(this, SignupActivity::class.java))
     }
 
-    private fun autoLogin() {
-        if (binding.radioBtnAutoLogin.isChecked())  saveLoginData()
-    }
-    private fun saveId() {
-        if (binding.radioBtnSaveId.isChecked()) saveLoginId()
-    }
 
     private fun clickKakaoBtn() {}
     private fun clickGoogleBtn() {}
     private fun clickNaverBtn() {}
 
-    private fun saveLoginId() {
-        val pref = getSharedPreferences("pref", Activity.MODE_PRIVATE)
+    private fun saveLoginEmail(email:String) {
+        val pref = getSharedPreferences("pref_email", MODE_PRIVATE)
         val editor = pref.edit()
-
-        val id = binding.etEmail.text.toString()
-
-        editor.putString("id", id)
-        editor.commit()
+        editor.putString("email", email)
+        editor.apply()
     }
 
-    private fun saveLoginData() {
-        val pref = getSharedPreferences("pref", Activity.MODE_PRIVATE)
+    private fun saveLoginPw(pw:String) {
+        val pref = getSharedPreferences("pref_pw", Activity.MODE_PRIVATE)
         val editor = pref.edit()
-
-        val id = binding.etEmail.text.toString()
-        val pw = binding.etPw.text.toString()
-
-        editor.putString("id", id)
         editor.putString("pw", pw)
-        editor.commit()
+        editor.apply()
     }
 
-    private  fun restoreLoginData() {
-        val pref = getSharedPreferences("pref", Activity.MODE_PRIVATE)
-        if(pref != null) {
-            val id = pref.getString("id", "")
-            val pw = pref.getString("pw", "")
+    private fun autoLoginRadioState(check:Boolean) {
+        val autoLogin = getSharedPreferences("pref_checked_auto_login", MODE_PRIVATE)
+        val editor = autoLogin.edit()
+        editor.putBoolean("auto_login", check)
+        editor.apply()
+    }
 
-            binding.etEmail.text = Editable.Factory.getInstance().newEditable(id)
+    private fun saveEmailRadioState(check:Boolean) {
+        val saveEmail = getSharedPreferences("pref_checked_save_email", MODE_PRIVATE)
+        val editor = saveEmail.edit()
+        editor.putBoolean("save_email", check)
+        editor.apply()
+    }
+
+    private fun restoreLoginEmail() {
+        val prefEmail = getSharedPreferences("pref_email", MODE_PRIVATE)
+        if(prefEmail != null) {
+            val email = prefEmail.getString("pref_email", "")
+            binding.etEmail.text = Editable.Factory.getInstance().newEditable(email)
+        }
+    }
+
+    private fun restoreLoginPw() {
+        val prefPw = getSharedPreferences("pref_pw", MODE_PRIVATE)
+        if(prefPw != null) {
+            val pw = prefPw.getString("pref_pw", "")
             binding.etPw.text = Editable.Factory.getInstance().newEditable(pw)
+        }
+    }
+
+    private fun updateAutoLoginRadioState() {
+        val prefAutoLogin = getSharedPreferences("pref_checked_auto_login", MODE_PRIVATE)
+        if(prefAutoLogin != null) {
+            val savedState = prefAutoLogin.getBoolean("auto_login", false)
+            val checkedState = binding.radioBtnAutoLogin.isChecked
+            if (checkedState != savedState) !binding.radioBtnAutoLogin.isChecked
+        }
+    }
+
+    private fun updateSaveEmailRadioState() {
+        val prefSaveEmail = getSharedPreferences("pref_checked_save_email", MODE_PRIVATE)
+        if(prefSaveEmail != null) {
+            val savedState = prefSaveEmail.getBoolean("save_email", false)
+            val checkedState = binding.radioBtnSaveId.isChecked
+            if (checkedState != savedState) !binding.radioBtnSaveId.isChecked
         }
     }
 
