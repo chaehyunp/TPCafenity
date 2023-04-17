@@ -2,6 +2,7 @@ package com.ch96.tpcafenity.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,14 +21,15 @@ import net.daum.mf.map.api.MapView.POIItemEventListener
 class TabMapFragment : Fragment() {
 
     lateinit var binding: FragmentTabMapBinding
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentTabMapBinding.inflate(inflater, container, false)
+
         return binding .root
     }
+
 
     //맵뷰 객체 생성
     val mapView by lazy { MapView(context) }
@@ -44,13 +46,9 @@ class TabMapFragment : Fragment() {
     }
 
     val markerEventListner : POIItemEventListener = object : POIItemEventListener {
-        override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
-            TODO("Not yet implemented")
-        }
+        override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {}
 
-        override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
-            TODO("Not yet implemented")
-        }
+        override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {}
 
         override fun onCalloutBalloonOfPOIItemTouched(
             p0: MapView?,
@@ -58,13 +56,11 @@ class TabMapFragment : Fragment() {
             p2: MapPOIItem.CalloutBalloonButtonType?
         ) {
             p1?.userObject?:return
-            val place = p1.userObject as Place
+            val place = p1?.userObject as Place
             startActivity(Intent(context, ShopInfoActivity::class.java).putExtra("place_url", place.place_url))
         }
 
-        override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {
-            TODO("Not yet implemented")
-        }
+        override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {}
 
     }
 
@@ -73,8 +69,8 @@ class TabMapFragment : Fragment() {
         var lat:Double = (activity as MainActivity).myLocation?.latitude ?: 37.5663
         var lng:Double = (activity as MainActivity).myLocation?.longitude ?: 126.9779
 
-        var mapPoint = MapPoint.mapPointWithCONGCoord(lat,lng)
-        mapView.setMapCenterPointAndZoomLevel(mapPoint, 3, true)
+        var myMapPoint = MapPoint.mapPointWithGeoCoord(lat, lng)
+        mapView.setMapCenterPointAndZoomLevel(myMapPoint, 4, true)
         mapView.zoomIn(true)
         mapView.zoomOut(true)
 
@@ -82,7 +78,7 @@ class TabMapFragment : Fragment() {
         var marker = MapPOIItem()
         marker.apply {
             itemName = "내위치"
-            mapPoint = mapPoint
+            mapPoint = myMapPoint
             markerType = MapPOIItem.MarkerType.BluePin
             selectedMarkerType = MapPOIItem.MarkerType.RedPin
         }
@@ -90,10 +86,11 @@ class TabMapFragment : Fragment() {
         
         //검색장소 마커
         val documents:MutableList<Place>? = (activity as MainActivity).searchPlaceResponse?.documents
-        documents?.forEach { 
-            val marker = MapPOIItem().apply { 
+        Log.i("what_documents","$documents")
+        documents?.forEach {
+            val marker = MapPOIItem().apply {
+                mapPoint = MapPoint.mapPointWithGeoCoord(it.y.toDouble(), it.x.toDouble())
                 itemName = it.place_name
-                mapPoint = mapPoint
                 markerType = MapPOIItem.MarkerType.YellowPin
                 selectedMarkerType = MapPOIItem.MarkerType.RedPin
                 userObject = it

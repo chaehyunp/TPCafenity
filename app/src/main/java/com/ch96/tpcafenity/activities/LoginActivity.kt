@@ -14,6 +14,7 @@ import com.ch96.tpcafenity.databinding.ActivityLoginBinding
 import com.ch96.tpcafenity.model.LoginUserData
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
+import com.kakao.sdk.common.util.Utility
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -107,8 +108,8 @@ class LoginActivity : AppCompatActivity() {
         })
 
         //카카오 키 해시 값 얻어오기
-//        val keyHash:String = Utility.getKeyHash(this)
-//        Log.i("keyHash", keyHash)
+        val keyHash:String = Utility.getKeyHash(this)
+        Log.i("kakao_keyHash", keyHash)
     }
 
     private fun clickSignupBtn() {

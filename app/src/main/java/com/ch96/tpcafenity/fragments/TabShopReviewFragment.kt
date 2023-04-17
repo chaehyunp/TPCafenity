@@ -1,60 +1,77 @@
 package com.ch96.tpcafenity.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
+import com.ch96.tpcafenity.activities.NewWriteActivity
+import com.ch96.tpcafenity.activities.ShopInfoActivity
+import com.ch96.tpcafenity.activities.WriteReviewActivity
+import com.ch96.tpcafenity.adapters.ListCommunityAdapter
+import com.ch96.tpcafenity.adapters.ReviewsAdapter
+import com.ch96.tpcafenity.databinding.FragmentTabShopReviewBinding
+import com.ch96.tpcafenity.model.CommunityList
+import com.ch96.tpcafenity.model.ReviewData
+import com.ch96.tpcafenity.network.RetrofitHelper
+import com.ch96.tpcafenity.network.RetrofitService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TabShopReviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TabShopReviewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val binding:FragmentTabShopReviewBinding by lazy { FragmentTabShopReviewBinding.inflate(layoutInflater) }
+    var shopId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_shop_review, container, false)
+
+        //ShopInfoActivity에서 adapter를 통해 intent가 가져온 값 가져오기
+        val sia = requireActivity() as ShopInfoActivity
+        shopId = sia.intent.getStringExtra("id") ?:""
+
+        binding.fabWrite.setOnClickListener { clickFabWrite() }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TabShopReviewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TabShopReviewFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onResume() {
+        super.onResume()
+        loadData()
     }
+
+    private fun clickFabWrite() {
+        var intent = Intent(activity, WriteReviewActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        intent.putExtra("shopId", shopId)
+        startActivity(intent)
+    }
+
+    fun loadData() {
+        //DB에 있는 리뷰 데이터 받아오기
+        val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
+        val retrofitService = retrofit.create(RetrofitService::class.java)
+
+        retrofitService.getReviews(shopId).enqueue(object : Callback<MutableList<ReviewData>> {
+            override fun onResponse(
+                call: Call<MutableList<ReviewData>>, response: Response<MutableList<ReviewData>>
+            ) {
+                var res = response.body()
+                res?.reverse()
+                val adapter = ReviewsAdapter(requireContext(), res!!)
+                binding.recycler.adapter = adapter
+                binding.tvReviewNum.text = adapter.getReviewNum().toString()
+            }
+            override fun onFailure(call: Call<MutableList<ReviewData>>, t: Throwable) {}
+        })
+    }
+
 }

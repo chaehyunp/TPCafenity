@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
@@ -145,6 +146,10 @@ class NewWriteActivity : AppCompatActivity() {
     }
 
     private fun clickDone() {
+        //소프트 키보드 없애기
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken,0)
+
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_save, null)
         val builder = AlertDialog.Builder(this).setView(dialogView)
         val saveAlertDialog = builder.show()

@@ -22,6 +22,6 @@
         app:itemTextColor="@drawable/navi_click_color"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/navi_menu"
-        app:itemIconSize="40dp"/>
+        app:itemIconSize="44dp"/>
 
 </LinearLayout>

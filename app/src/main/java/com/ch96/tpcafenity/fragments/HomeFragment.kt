@@ -30,6 +30,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+        binding.pager.run { isUserInputEnabled = false }
         binding.pager.adapter = ViewPagerHomeAdapter(requireActivity())
 
         TabLayoutMediator(binding.layoutTab, binding.pager) { tab, position ->

@@ -38,7 +38,7 @@ class RecyclerShopInfoAdapter (var context: Context, var documents:MutableList<P
 
         holder.binding.root.setOnClickListener {
             val intent = Intent(context, ShopInfoActivity::class.java)
-            intent.putExtra("place_name", place.place_name)
+            intent.putExtra("id", place.id)
             intent.putExtra("place_url", place.place_url)
             context.startActivity(intent)
         }

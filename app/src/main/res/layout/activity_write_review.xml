@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.NewWriteActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_done"
+                android:layout_width="54dp"
+                android:layout_height="wrap_content"
+                android:text="완료"
+                android:gravity="center"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:textColor="@color/primary"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+        <RelativeLayout
+            android:id="@+id/layout_add_img"
+            android:layout_width="match_parent"
+            android:layout_height="94dp"
+            android:orientation="horizontal"
+            android:layout_below="@+id/et_text">
+
+            <RelativeLayout
+                android:id="@+id/btn_add_img"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_btn_line"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_camera"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="14dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/iv_camera"
+                    android:layout_marginTop="2dp">
+
+                    <TextView
+                        android:id="@+id/tv_photo_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/primary"
+                        android:includeFontPadding="false"
+                        android:layout_marginRight="1dp"
+                        android:text="0"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/blk300"
+                        android:includeFontPadding="false"
+                        android:text="/5"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/btn_add_img"/>
+
+        </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_text"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_btn_line"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:gravity="top"
+        android:hint="내용을 입력하세요."
+        android:inputType="textMultiLine"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/blk600"
+        android:textSize="16sp" />
+
+
+</RelativeLayout>

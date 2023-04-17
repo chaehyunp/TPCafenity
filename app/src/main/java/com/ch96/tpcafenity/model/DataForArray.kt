@@ -6,3 +6,7 @@ data class CommunityList(var postTag:String,
                          var imgPath:String,
                          var nick:String,
                          var postDate:String)
+
+data class ReviewData(var nick: String,
+                  var text:String,
+                  var writeDate:String)

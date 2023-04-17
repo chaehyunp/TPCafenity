@@ -53,6 +53,9 @@
             android:name=".activities.NewWriteActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.WriteReviewActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.MainActivity"
             android:exported="false" />
         <activity

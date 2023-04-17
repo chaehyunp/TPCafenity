@@ -32,8 +32,7 @@ class CommunityFragment : Fragment() {
     private val binding:FragmentCommunityBinding by lazy { FragmentCommunityBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         binding.fabWrite.setOnClickListener { clickFabWrite() }

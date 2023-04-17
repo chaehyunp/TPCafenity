@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.ch96.tpcafenity.activities.NewWriteActivity
+import com.ch96.tpcafenity.activities.WriteReviewActivity
 import com.ch96.tpcafenity.databinding.RecyclerItemNewWriteBinding
 
 class RecyclerSelectedImageAdapter (var context:Context, var images:MutableList<Uri>) : Adapter<RecyclerSelectedImageAdapter.VH>() {

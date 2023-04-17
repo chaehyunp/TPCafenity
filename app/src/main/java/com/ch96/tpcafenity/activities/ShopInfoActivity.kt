@@ -20,6 +20,7 @@ class ShopInfoActivity : AppCompatActivity() {
 
     //아답터에서 받아온 주소 변수
     var place_url:String ?= null
+    var id:String ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -35,6 +36,7 @@ class ShopInfoActivity : AppCompatActivity() {
             tab.text = tabTextList[position]
         }.attach()
 
+        id = intent.getStringExtra("id")
         place_url = intent.getStringExtra("place_url")
     }
 

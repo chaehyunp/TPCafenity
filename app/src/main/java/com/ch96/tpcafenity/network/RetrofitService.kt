@@ -5,6 +5,7 @@ import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
 import com.ch96.tpcafenity.model.LoginUserAccount
 import com.ch96.tpcafenity.model.LoginUserData
 import com.ch96.tpcafenity.model.Place
+import com.ch96.tpcafenity.model.ReviewData
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Field
@@ -46,10 +47,28 @@ interface RetrofitService {
     @GET("Cafenity/getCommunityPosts.php")
     fun getCommunityPosts() : Call<ArrayList<CommunityList>>
 
+    //DB에서 내가 작성한 게시글 받아오기
+    @GET("Cafenity/getMyCommunityPosts.php")
+    fun getMyCommunityPosts(@Query("accountNo") accountNo:String) : Call<ArrayList<CommunityList>>
+
     //작성한 게시글 DB에 저장
     @Multipart
     @POST("Cafenity/saveCommunityPost.php")
     fun savePost(@PartMap dataPat : Map<String, String>, @Part filePart : MutableList<MultipartBody.Part>):Call<String>
+
+    //DB에서 리뷰글 받아오기
+    @GET("Cafenity/getReviews.php")
+    fun getReviews(@Query("shopId") shopId:String) : Call<MutableList<ReviewData>>
+
+    //DB에서 내가 작성한 리뷰글 받아오기
+    @GET("Cafenity/getMyReviews.php")
+    fun getMyReviews(@Query("accountNo") accountNo:String) : Call<MutableList<ReviewData>>
+
+    //작성한 리뷰글 DB에 저장
+    @Multipart
+    @POST("Cafenity/saveReview.php")
+    //fun saveReview(@PartMap dataPat : Map<String, String>, @Part filePart : MutableList<MultipartBody.Part>):Call<String>
+    fun saveReview(@PartMap dataPat : Map<String, String>):Call<String>
 
     //즐겨찾기 DB에 저장
     @Multipart
