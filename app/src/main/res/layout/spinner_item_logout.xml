@@ -6,6 +6,6 @@
     android:text="SAMPLE"
     android:textColor="@color/black"
     android:padding="8dp"
-    android:textSize="16dp"
+    android:textSize="14dp"
     android:gravity="center"/>
 <!--android:drawableRight="@drawable/icon_arrow_drop_down"-->

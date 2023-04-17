@@ -7,5 +7,5 @@
     android:padding="8dp"
     android:textColor="@color/black"
     android:fontFamily="@font/noto_sans_kr_regular"
-    android:textSize="16sp"
+    android:textSize="14sp"
     android:gravity="center"/>

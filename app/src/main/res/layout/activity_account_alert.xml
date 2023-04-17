@@ -14,61 +14,73 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="푸쉬알림"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/black"
             android:layout_marginHorizontal="24dp"/>
 
-        <androidx.appcompat.widget.SwitchCompat
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"/>
+            android:checked="true"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="소리알림"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/black"
             android:layout_marginHorizontal="24dp"/>
 
-        <androidx.appcompat.widget.SwitchCompat
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"/>
+            android:checked="true"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="진동알림"
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/black"
             android:layout_marginHorizontal="24dp"/>
 
-        <androidx.appcompat.widget.SwitchCompat
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="false"/>
+            android:checked="false"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </LinearLayout>
 

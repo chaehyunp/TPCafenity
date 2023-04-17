@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="계정을 삭제하기면 커뮤니티에 작성하신 글과 매장 리뷰 등 모든 활동 정보가 삭제됩니다. 계정 삭제후 7일간 다시 가입할 수 없습니다."
             android:fontFamily="@font/noto_sans_kr_regular"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:letterSpacing="0.04"
             android:lineSpacingExtra="0.8dp"
             android:layout_marginTop="16dp"

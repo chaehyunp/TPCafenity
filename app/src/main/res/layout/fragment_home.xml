@@ -16,7 +16,9 @@
         android:textSize="16sp"
         android:inputType="text"
         android:imeOptions="actionSearch"
-        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/bg_textfield"
         android:paddingHorizontal="24dp"/>
 
