@@ -1,5 +1,6 @@
 package com.ch96.tpcafenity.activities
 
+//import com.ch96.tpcafenity.fragments.TabListFragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
@@ -8,14 +9,13 @@ import android.os.Looper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.ch96.tpcafenity.GV
@@ -26,9 +26,7 @@ import com.ch96.tpcafenity.fragments.CommunityFragment
 import com.ch96.tpcafenity.fragments.HomeFragment
 import com.ch96.tpcafenity.fragments.InterestsFragment
 import com.ch96.tpcafenity.fragments.TabListFragment
-//import com.ch96.tpcafenity.fragments.TabListFragment
 import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
-import com.ch96.tpcafenity.model.Place
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -40,6 +38,7 @@ import com.google.android.gms.location.Priority
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 private const val TAG_HOME = "home_fragment"
 private const val TAG_INTERESTS = "interests_fragment"
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         setFragment(TAG_HOME, HomeFragment())
 
-        binding.navigationView.setOnItemSelectedListener { item ->
+        binding.naviBottom.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.homeFragment -> setFragment(TAG_HOME, HomeFragment())
                 R.id.interestsFragment -> setFragment(TAG_INTERESTS, InterestsFragment())
@@ -165,10 +164,21 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item?.itemId) {
             R.id.menu_search -> Toast.makeText(this, "search", Toast.LENGTH_SHORT).show()
-            R.id.menu_noti -> Toast.makeText(this, "noti", Toast.LENGTH_SHORT).show()
+            R.id.menu_noti -> {
+                binding.drawerLayout.openDrawer(binding.navDrawer)
+                return true
+            }
         }
         false
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() { //뒤로가기 했을 때
+        if (binding.drawerLayout.isDrawerOpen(binding.navDrawer)) {
+            binding.drawerLayout.closeDrawer(binding.navDrawer)
+        } else {
+            super.onBackPressed()
+        }
     }
 
 
