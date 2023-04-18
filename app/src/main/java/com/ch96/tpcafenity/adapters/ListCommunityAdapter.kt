@@ -23,6 +23,11 @@ class ListCommunityAdapter (var context: Context, var items:MutableList<Communit
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item:CommunityList = items[position]
 
+        holder.binding.tvTag.text = item.postTag
+        holder.binding.tvTitle.text = item.title
+        holder.binding.tvNick.text = item.nick
+        holder.binding.tvDate.text = item.postDate
+
         holder.binding.root.setOnClickListener {
             val intent = Intent(context, PostActivity::class.java)
             intent.putExtra("tag", item.postTag)
