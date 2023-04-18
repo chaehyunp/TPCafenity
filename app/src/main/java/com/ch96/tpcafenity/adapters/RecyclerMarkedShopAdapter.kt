@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
+import com.ch96.tpcafenity.activities.MainActivity
 import com.ch96.tpcafenity.activities.ShopInfoActivity
 import com.ch96.tpcafenity.databinding.RecyclerItemShopInfoBinding
 import com.ch96.tpcafenity.fragments.InterestsFragment
@@ -38,7 +39,7 @@ class RecyclerMarkedShopAdapter (var context: Context, var documents:MutableList
 
         val place:Place = documents[position]
         Log.i("what_place", "$place")
-        holder.binding.tvShopName.text = place.place_name
+        holder.binding.tvPlaceName.text = place.place_name
 
         holder.binding.root.setOnClickListener {
             val intent = Intent(context, ShopInfoActivity::class.java)
@@ -46,6 +47,7 @@ class RecyclerMarkedShopAdapter (var context: Context, var documents:MutableList
             intent.putExtra("place_url", place.place_url)
             context.startActivity(intent)
         }
+
 
         holder.binding.toggleMark.setOnCheckedChangeListener { compoundButton, b ->
             if (!b) {

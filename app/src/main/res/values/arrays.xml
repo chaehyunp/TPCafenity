@@ -2,10 +2,11 @@
 <resources>
     <string-array name="post_tag">
         <item>"게시판선택"</item>
-        <item>"이야기해요"</item>
-        <item>"후기남겨요"</item>
-        <item>"추천합니다"</item>
-        <item>"비추천합니다"</item>
+        <item>"이야기"</item>
+        <item>"TIP"</item>
+        <item>"후기"</item>
+        <item>"추천"</item>
+        <item>"비추천"</item>
         <item>"기타"</item>
     </string-array>
 

@@ -8,5 +8,4 @@
     android:fontFamily="@font/noto_sans_kr_regular"
     android:textSize="14sp"
     android:paddingHorizontal="32dp"
-    android:paddingVertical="8dp"
     android:layout_margin="8dp"/>

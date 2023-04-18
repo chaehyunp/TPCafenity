@@ -66,11 +66,10 @@ class NewWriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //툴바 설정
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.icon_action_close)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         //스피너 아답터 설정
         var data = resources.getStringArray(R.array.post_tag)
@@ -90,7 +89,6 @@ class NewWriteActivity : AppCompatActivity() {
         }
 
         binding.recycler.adapter = imageAdapter
-
 
         binding.tvDone.setOnClickListener { clickDone() }
         binding.btnAddImg.setOnClickListener { clickAddImage() }

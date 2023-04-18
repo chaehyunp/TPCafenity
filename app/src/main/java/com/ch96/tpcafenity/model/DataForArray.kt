@@ -8,5 +8,8 @@ data class CommunityList(var postTag:String,
                          var postDate:String)
 
 data class ReviewData(var nick: String,
-                  var text:String,
-                  var writeDate:String)
+                      var text:String,
+                      var writeDate:String)
+
+data class ShopId(var id: String)
+

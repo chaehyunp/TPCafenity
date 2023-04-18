@@ -17,6 +17,7 @@ class PostActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.icon_action_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        binding.tvTag.text = intent.getStringExtra("tag")
         binding.tvTitle.text = intent.getStringExtra("title")
         binding.tvNick.text = intent.getStringExtra("nick")
         binding.tvDate.text = intent.getStringExtra("date")

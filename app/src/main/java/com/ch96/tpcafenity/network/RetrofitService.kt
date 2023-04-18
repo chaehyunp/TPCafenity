@@ -6,6 +6,7 @@ import com.ch96.tpcafenity.model.LoginUserAccount
 import com.ch96.tpcafenity.model.LoginUserData
 import com.ch96.tpcafenity.model.Place
 import com.ch96.tpcafenity.model.ReviewData
+import com.ch96.tpcafenity.model.ShopId
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Field
@@ -45,7 +46,7 @@ interface RetrofitService {
 
     //DB에서 게시글 받아오기
     @GET("Cafenity/getCommunityPosts.php")
-    fun getCommunityPosts() : Call<ArrayList<CommunityList>>
+    fun getCommunityPosts(@Query("activeTag") activeTag:String) : Call<MutableList<CommunityList>>
 
     //DB에서 내가 작성한 게시글 받아오기
     @GET("Cafenity/getMyCommunityPosts.php")
@@ -78,6 +79,10 @@ interface RetrofitService {
     //DB에서 즐겨찾기 받아오기
     @GET("Cafenity/getMarkedShop.php")
     fun getMarkedShop(@Query("accountNo") accountNo:String):Call<MutableList<Place>>
+
+    //DB에서 즐겨찾기 id 받아오기
+    @GET("Cafenity/getMarkedShopid.php")
+    fun getMarkedShopId(@Query("accountNo") accountNo:String):Call<MutableList<ShopId>>
 
     //서버 DB에서 특정 즐겨찾기를 삭제
     @GET("Cafenity/deleteMark.php")

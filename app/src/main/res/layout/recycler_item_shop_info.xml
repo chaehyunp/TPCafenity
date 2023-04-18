@@ -1,67 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="16dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="4dp"
-    android:layout_marginHorizontal="8dp">
+    android:layout_marginTop="8dp">
 
-    <RelativeLayout
-        android:id="@+id/layout_recycler_shop_info"
+    <TextView
+        android:id="@+id/tv_place_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:includeFontPadding="false"
+        android:text="아메리카노"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
-        <ToggleButton
-            android:id="@+id/toggle_mark"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/selector_mark"
-            android:checked="false"
-            android:textOff=" "
-            android:textOn=" " />
+    <TextView
+        android:id="@+id/tv_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="661m"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:layout_below="@+id/tv_place_name"
+        android:layout_marginBottom="8dp"
+        android:layout_alignLeft="@+id/tv_place_name"
+        android:drawableStart="@drawable/icon_location"
+        android:drawableTint="@color/black"
+        android:drawablePadding="4dp"/>
 
-        <TextView
-            android:id="@+id/tv_shop_name"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/noto_sans_kr_regular"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:text="테스트문장테스트문장테스트문장"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:textSize="12sp"
+        android:textColor="@color/blk600"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="서울 성동구 마조로 15-11, 2층 (행당동)"
+        android:layout_toRightOf="@+id/tv_distance"
+        android:layout_alignBaseline="@+id/tv_distance"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_below="@+id/tv_distance"
+        android:includeFontPadding="false"
+        android:text="010-1234-5678"
+        android:textColor="@color/hightlight"
+        android:textSize="14sp"
+        android:layout_alignLeft="@+id/tv_distance"/>
+
+    <ImageView
+        android:id="@+id/dl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/devide_line"
+        android:layout_below="@+id/tv_tel"
+        android:layout_marginTop="12dp"/>
+
+    <ToggleButton
+        android:id="@+id/toggle_mark"
+        android:layout_width="38dp"
+        android:layout_height="32dp"
+        android:textOn=""
+        android:textOff=""
+        android:background="@drawable/selector_mark"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="24dp"/>
 
 
-
-        <TextView
-            android:id="@+id/tv_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="4dp"
-            android:layout_below="@+id/tv_shop_name"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="45m"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="14sp"
-            android:textColor="@color/blk400"
-            android:gravity="center"
-            android:drawableStart="@drawable/icon_location"
-            android:drawableTint="@color/blk400"
-            android:includeFontPadding="false"/>
-
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+</RelativeLayout>

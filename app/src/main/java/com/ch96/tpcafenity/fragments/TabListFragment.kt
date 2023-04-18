@@ -7,9 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.activities.MainActivity
+import com.ch96.tpcafenity.adapters.RecyclerMarkedShopAdapter
 import com.ch96.tpcafenity.adapters.RecyclerShopInfoAdapter
 import com.ch96.tpcafenity.databinding.FragmentTabListBinding
+import com.ch96.tpcafenity.model.Place
+import com.ch96.tpcafenity.network.RetrofitHelper
+import com.ch96.tpcafenity.network.RetrofitService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class TabListFragment : Fragment() {
 
@@ -33,4 +41,6 @@ class TabListFragment : Fragment() {
         }
 
     }
+
+
 }

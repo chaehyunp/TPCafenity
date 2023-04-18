@@ -42,8 +42,8 @@
                 android:id="@+id/btn_add_img"
                 android:focusable="true"
                 android:clickable="true"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
                 android:background="@drawable/bg_btn_line"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
@@ -70,6 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
+                        android:textSize="14sp"
                         android:textColor="@color/primary"
                         android:includeFontPadding="false"
                         android:layout_marginRight="1dp"
@@ -79,9 +80,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:textColor="@color/blk300"
                         android:includeFontPadding="false"
-                        android:text="/5"/>
+                        android:textSize="14sp"
+                        android:text="/5"
+                        android:textColor="@color/blk300" />
 
                 </LinearLayout>
 
@@ -103,7 +105,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_add_img"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/devide_line" />

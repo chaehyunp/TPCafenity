@@ -28,16 +28,31 @@
                 android:src="@drawable/img_no_image"/>
 
             <TextView
+                android:id="@+id/tv_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:textColor="@color/hightlight"
+                android:textSize="12sp"
+                android:includeFontPadding="false"
+                android:layout_alignStart="@+id/tv_title"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/iv_image"
+                android:text="이야기"/>
+
+            <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_image"
-                android:text="색안경을 끼고보지마용"
+                android:layout_below="@+id/tv_tag"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/noto_sans_kr_bold"
-                android:textColor="@color/black"
-                android:textSize="20sp"
                 android:includeFontPadding="false"
-                android:layout_margin="16dp"/>
+                android:text="색안경을 끼고보지마용"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_nick"

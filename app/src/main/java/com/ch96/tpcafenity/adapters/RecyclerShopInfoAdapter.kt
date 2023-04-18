@@ -15,6 +15,7 @@ import com.ch96.tpcafenity.activities.ShopInfoActivity
 import com.ch96.tpcafenity.databinding.RecyclerItemShopInfoBinding
 import com.ch96.tpcafenity.fragments.TabListFragment
 import com.ch96.tpcafenity.model.Place
+import com.ch96.tpcafenity.model.ShopId
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
 import retrofit2.Call
@@ -33,8 +34,10 @@ class RecyclerShopInfoAdapter (var context: Context, var documents:MutableList<P
     override fun onBindViewHolder(holder: VH, position: Int) {
         val place:Place = documents[position]
 
-        holder.binding.tvShopName.text = place.place_name
+        holder.binding.tvPlaceName.text = place.place_name
         holder.binding.tvDistance.text = "${place.distance}m"
+        holder.binding.tvAddress.text = if (place.road_address_name == "") place.address_name else place.road_address_name
+        holder.binding.tvTel.text = if (place.phone == "") "전화번호 정보없음" else place.phone
 
         holder.binding.root.setOnClickListener {
             val intent = Intent(context, ShopInfoActivity::class.java)
@@ -42,6 +45,20 @@ class RecyclerShopInfoAdapter (var context: Context, var documents:MutableList<P
             intent.putExtra("place_url", place.place_url)
             context.startActivity(intent)
         }
+
+        //즐겨찾기한 가게 id 받아오기
+//        val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
+//        val retrofitService = retrofit.create(RetrofitService::class.java)
+//        retrofitService.getMarkedShopId(GV.loginUserNo?:"").enqueue(object :
+//            Callback<MutableList<ShopId>> {
+//            override fun onResponse(
+//                call: Call<MutableList<ShopId>>, response: Response<MutableList<ShopId>>
+//            ) {
+//                var res = response.body()
+//                if (res<MutableList<ShopId>>?.contains(place.id)?:false)
+//            }
+//            override fun onFailure(call: Call<MutableList<ShopId>>, t: Throwable) {}
+//        })
 
         holder.binding.toggleMark.setOnCheckedChangeListener { compoundButton, b ->
 
