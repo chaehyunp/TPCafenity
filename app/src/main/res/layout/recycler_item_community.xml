@@ -39,7 +39,7 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/tv_nick"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="김카페"
         android:textSize="14sp"
-        android:textColor="@color/black"
+        android:textColor="@color/blk600"
         android:includeFontPadding="false"
         android:fontFamily="@font/noto_sans_kr_regular"
         android:layout_alignStart="@+id/tv_title"

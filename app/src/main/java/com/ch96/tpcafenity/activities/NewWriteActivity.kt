@@ -38,8 +38,10 @@ import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -60,8 +62,6 @@ class NewWriteActivity : AppCompatActivity() {
     var images:MutableList<Uri> = mutableListOf()
     var imageAdapter = RecyclerSelectedImageAdapter(this, images)
     var imageSize = 0
-    var imgPath:MutableList<String> = mutableListOf()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -114,7 +114,6 @@ class NewWriteActivity : AppCompatActivity() {
                 for(i in 0 until size!!) images?.add(clipData?.getItemAt(i)?.uri!!)
                 imageSize += size
                 binding.tvPhotoNum.text = "$imageSize"
-
             } else {
                 images.add(intent?.data!!)
                 imageSize++
@@ -176,37 +175,30 @@ class NewWriteActivity : AppCompatActivity() {
                 Toast.makeText(this, "태그를 선택해주세요.", Toast.LENGTH_SHORT).show()
             }
             else {
-                //이미지가 있을경우 이미지 uri -> path
-                if (imageSize != 0) {
-                    for (i in 0 until images.size) {
-                        var uri = images[i]
-                        Log.i("what_uri", "$uri")
-                        imgPath.add(getFilePathFormUri(uri)?:"")
-                        Log.i("what_path", "$imgPath")
-                    }
-                    saveAlertDialog.dismiss()
-                }
+                saveAlertDialog.dismiss()
 
                 val retrofit: Retrofit = RetrofitHelper.getRetrofitInstance(baseUrl)
                 val retrofitService = retrofit.create(RetrofitService::class.java)
 
                 //이미지가 있으면
                 var filePart:MutableList<MultipartBody.Part> = mutableListOf()
-                if (imageSize != 0) {Log.i("what_image_size","$imageSize")
+                if (imageSize != 0) {
+                    Log.i("what_image_size","$imageSize")
                     for (i in 0 until imageSize) {
-                        val file = File(imgPath[i])
-                        Log.i("what_path_i","${imgPath[i]}") ///storage/emulated/0/DCIM/zzang_gu/zzang_whithpanti.jpg
-                        val body = file.toString().toRequestBody("image/*".toMediaType())
-//                        filePart[i] = MultipartBody.Part.createFormData("img$i", file.name, body)
-//                        Log.i("what_file","${filePart[i]}")
-                        val part = MultipartBody.Part.createFormData("img$i", file.name, body)
-                        filePart.add(part)
+                        var imagePath = getFilePathFormUri(images[i])
+                        Log.i("what_imagePath","$imagePath")
+                        val file = File(imagePath)
+                        Log.i("what_file","$file")
+                        val body = file.asRequestBody("image/*".toMediaTypeOrNull())
+                        Log.i("what_body","$body")
+                        filePart.add(MultipartBody.Part.createFormData("image$i", file.name, body))
                         Log.i("what_part","$filePart")
                     }
                 }
                 retrofitService.savePost(communityPost, filePart).enqueue(object : Callback<String> {
                     override fun onResponse(call: Call<String>, response: Response<String>) {
                         Toast.makeText(this@NewWriteActivity, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                        Log.i("what_res", "${response.body().toString()}")
                         //커뮤니티로 다시 이동
                         saveAlertDialog.dismiss()
                         finish()
@@ -216,7 +208,6 @@ class NewWriteActivity : AppCompatActivity() {
                         saveAlertDialog.dismiss()
                         Log.i("what_savepost_failed", "${t.message}")
                     }
-
                 })
             }
         }

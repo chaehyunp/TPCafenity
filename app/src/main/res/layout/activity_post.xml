@@ -20,12 +20,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_image"
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/indicator"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img_no_image"/>
+                android:layout_height="48dp"
+                app:ci_drawable="@drawable/indicator"
+                app:ci_width="7dp"
+                app:ci_height="7dp"
+                app:ci_margin="4dp"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"/>
 
             <TextView
                 android:id="@+id/tv_tag"
@@ -37,7 +44,7 @@
                 android:includeFontPadding="false"
                 android:layout_alignStart="@+id/tv_title"
                 android:layout_marginTop="16dp"
-                android:layout_below="@+id/iv_image"
+                android:layout_below="@+id/pager"
                 android:text="이야기"/>
 
             <TextView

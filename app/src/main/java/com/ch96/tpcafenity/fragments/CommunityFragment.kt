@@ -134,7 +134,6 @@ class CommunityFragment : Fragment() {
 
     fun loadData() {
 
-        Log.i("111", "${activeTag.joinToString(",")}")
         //DB에 있는 게시글 데이터 받아오기
         val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
@@ -145,7 +144,6 @@ class CommunityFragment : Fragment() {
                 var res = response.body()
                 res?.reverse()
                 val adapter = ListCommunityAdapter(requireContext(), res!!)
-                Log.i("what_tag", "$activeTag")
 
                 binding.recycler.adapter = adapter
             }

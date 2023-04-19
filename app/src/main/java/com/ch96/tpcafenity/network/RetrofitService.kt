@@ -55,7 +55,7 @@ interface RetrofitService {
     //작성한 게시글 DB에 저장
     @Multipart
     @POST("Cafenity/saveCommunityPost.php")
-    fun savePost(@PartMap dataPat : Map<String, String>, @Part filePart : MutableList<MultipartBody.Part>):Call<String>
+    fun savePost(@PartMap dataPart : Map<String, String>, @Part filePart : MutableList<MultipartBody.Part>):Call<String>
 
     //DB에서 리뷰글 받아오기
     @GET("Cafenity/getReviews.php")
@@ -95,8 +95,7 @@ interface RetrofitService {
     //수정한 프로필 DB에 저장
     @Multipart
     @POST("Cafenity/saveEditedAccount.php")
-//    fun saveEditedAccount(@PartMap dataPat : Map<String, String>, filePart : MultipartBody.Part?):Call<String>
-    fun saveEditedAccount(@PartMap dataPat : Map<String, String>):Call<String>
+    fun saveEditedAccount(@PartMap dataPart : Map<String, String>, filePart : MultipartBody.Part?):Call<String>
 
     //Kakao 장소 검색 API
     @Headers("Authorization: KakaoAK ddbb92f9f90921d871078f7bed4f5369")

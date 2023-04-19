@@ -1,8 +1,11 @@
 package com.ch96.tpcafenity.activities
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -12,7 +15,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.adapters.ListCommunityAdapter
@@ -21,13 +27,20 @@ import com.ch96.tpcafenity.model.CommunityList
 import com.ch96.tpcafenity.model.LoginUserAccount
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class AccountProfileActivity : AppCompatActivity() {
 
     val binding:ActivityAccountProfileBinding by lazy { ActivityAccountProfileBinding.inflate(layoutInflater) }
+    var imgPath:String ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -38,10 +51,39 @@ class AccountProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         binding.tvEditActive.setOnClickListener { clickEditBtn() }
+        binding.civ.setOnClickListener { clickEditImageBtn() }
 
         inputError()
         checkNick()
         loadData()
+    }
+
+    fun getFilePathFormUri(uri: Uri):String? {
+        Log.i("what_uri_method", "$uri")
+        var proj:Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        Log.i("what_imgProj", "$proj")
+        var cursor = contentResolver.query( uri, proj, null, null, null)
+        cursor?.moveToFirst()
+//        cursor?.columnNames?.forEach {
+//        Log.i("what_cursor", "$it  ,  ${cursor.getString(0)}") }
+
+        return cursor?.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
+    }
+
+    var imagePickLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ActivityResultCallback {
+        if(it.resultCode != RESULT_CANCELED) {
+            var intent = it.data
+            var uri = intent?.data
+            Glide.with(this).load(uri).into(binding.civ)
+
+            //uri --> path
+            imgPath = getFilePathFormUri(uri!!)
+        }
+    })
+
+    fun clickEditImageBtn() {
+        var intent = Intent(Intent.ACTION_PICK).setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        imagePickLauncher.launch(intent)
     }
 
     fun clickEditBtn() {
@@ -66,7 +108,15 @@ class AccountProfileActivity : AppCompatActivity() {
 
             val retrofit = RetrofitHelper.getRetrofitInstance(GV.baseUrl)
             val retrofitService = retrofit.create(RetrofitService::class.java)
-            retrofitService.saveEditedAccount(editedAccount).enqueue(object : Callback<String>{
+
+            var part:MultipartBody.Part ?= null
+            //이미지를 변경했을경우
+            if(imgPath != null) {
+                val file = File(imgPath)
+                val body = file.asRequestBody("image/*".toMediaTypeOrNull())
+                part = MultipartBody.Part.createFormData("image", file.name, body)
+            }
+            retrofitService.saveEditedAccount(editedAccount, part).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     GV.loginUserNick = editedAccount["nick"]
                     Toast.makeText(this@AccountProfileActivity, "수정되었습니다.", Toast.LENGTH_SHORT).show()
