@@ -2,17 +2,19 @@ package com.ch96.tpcafenity.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.ch96.tpcafenity.R
+import com.ch96.tpcafenity.adapters.ViewPagerImageAdapter
 import com.ch96.tpcafenity.databinding.ActivityPostBinding
+import com.ch96.tpcafenity.fragments.ImageFourFragment
+import com.ch96.tpcafenity.fragments.ImageOneFragment
+import com.ch96.tpcafenity.fragments.ImageThreeFragment
+import com.ch96.tpcafenity.fragments.ImageTwoFragment
+import com.ch96.tpcafenity.fragments.ImageZeroFragment
 
 class PostActivity : AppCompatActivity() {
 
     val binding:ActivityPostBinding by lazy { ActivityPostBinding.inflate(layoutInflater) }
-    var image0 = ""
-    var image1 = ""
-    var image2 = ""
-    var image3 = ""
-    var image4 = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,15 +31,29 @@ class PostActivity : AppCompatActivity() {
         binding.tvDate.text = intent.getStringExtra("date")
         binding.tvText.text = intent.getStringExtra("text")
 
-        image0 = intent.getStringExtra("image0") ?: ""
-        image1 = intent.getStringExtra("image1") ?: ""
-        image2 = intent.getStringExtra("image2") ?: ""
-        image3 = intent.getStringExtra("image3") ?: ""
-        image4 = intent.getStringExtra("image4") ?: ""
+        val images = mutableListOf <String>()
+        if (intent.getStringExtra("image0") !== "") images.add(intent.getStringExtra("image0")!!)
+        if (intent.getStringExtra("image1") !== "") images.add(intent.getStringExtra("image1")!!)
+        if (intent.getStringExtra("image2") !== "") images.add(intent.getStringExtra("image2")!!)
+        if (intent.getStringExtra("image3") !== "") images.add(intent.getStringExtra("image3")!!)
+        if (intent.getStringExtra("image4") !== "") images.add(intent.getStringExtra("image4")!!)
 
-        //페이저에 아답터 붙이기
+        var fragment0 = ImageZeroFragment()
+        var fragment1 = ImageOneFragment()
+        var fragment2 = ImageTwoFragment()
+        var fragment3 = ImageThreeFragment()
+        var fragment4 = ImageFourFragment()
 
-        binding.indicator.setViewPager(binding.pager)
+        var fragments = mutableListOf<Fragment>()
+        fragments.add(fragment0)
+        fragments.add(fragment1)
+        fragments.add(fragment2)
+        fragments.add(fragment3)
+        fragments.add(fragment4)
+
+        binding.pager.adapter = ViewPagerImageAdapter(this, fragments)
+        binding.indicator.setViewPager2(binding.pager)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

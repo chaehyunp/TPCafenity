@@ -42,27 +42,12 @@ class ListCommunityAdapter (var context: Context, var items:MutableList<Communit
             intent.putExtra("date", item.postDate)
             intent.putExtra("text", item.text)
 
-            var imageAddress = ""
-            if (item.image0 != "") {
-                imageAddress = "${GV.baseUrl}/Cafenity/${item.image0}"
-                intent.putExtra("image0", imageAddress)
-            }
-            if (item.image1 != "") {
-                imageAddress = "${GV.baseUrl}/Cafenity/${item.image1}"
-                intent.putExtra("image1", imageAddress)
-            }
-            if (item.image2 != "") {
-                imageAddress = "${GV.baseUrl}/Cafenity/${item.image2}"
-                intent.putExtra("image2", imageAddress)
-            }
-            if (item.image3 != "") {
-                imageAddress = "${GV.baseUrl}/Cafenity/${item.image3}"
-                intent.putExtra("image3", imageAddress)
-            }
-            if (item.image4 != "") {
-                imageAddress = "${GV.baseUrl}/Cafenity/${item.image4}"
-                intent.putExtra("image4", imageAddress)
-            }
+            intent.putExtra("image0", item.image0)
+            intent.putExtra("image1", item.image1)
+            intent.putExtra("image2", item.image2)
+            intent.putExtra("image3", item.image3)
+            intent.putExtra("image4", item.image4)
+
             context.startActivity(intent)
         }
 

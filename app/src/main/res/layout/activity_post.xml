@@ -20,19 +20,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <me.relex.circleindicator.CircleIndicator
-                android:id="@+id/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                app:ci_drawable="@drawable/indicator"
-                app:ci_width="7dp"
-                app:ci_height="7dp"
-                app:ci_margin="4dp"/>
-
-            <androidx.viewpager.widget.ViewPager
+            <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"/>
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:dotsSize="12dp"
+                app:dotsSpacing="4dp"
+                app:dotsColor="@color/blk700"
+                app:selectedDotColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_tag"

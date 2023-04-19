@@ -6,16 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ch96.tpcafenity.R
-import com.ch96.tpcafenity.databinding.FragmentPagerImageBinding
 
-class PagerImageFragment : Fragment() {
-
-    val binding by lazy { FragmentPagerImageBinding.inflate(layoutInflater) }
+class ImageOneFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       return binding.root
+        return inflater.inflate(R.layout.fragment_image_one, container, false)
     }
 
 }
