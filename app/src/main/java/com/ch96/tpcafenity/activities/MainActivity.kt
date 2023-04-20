@@ -2,6 +2,7 @@ package com.ch96.tpcafenity.activities
 
 //import com.ch96.tpcafenity.fragments.TabListFragment
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -163,7 +164,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item?.itemId) {
-            R.id.menu_search -> Toast.makeText(this, "search", Toast.LENGTH_SHORT).show()
+            R.id.menu_search -> {
+                startActivity(Intent(this,SearchActivity::class.java))
+            }
             R.id.menu_noti -> {
                 binding.drawerLayout.openDrawer(binding.navDrawer)
                 return true
