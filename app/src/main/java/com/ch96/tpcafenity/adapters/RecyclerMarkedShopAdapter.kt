@@ -38,7 +38,7 @@ class RecyclerMarkedShopAdapter (var context: Context, var documents:MutableList
         holder.binding.toggleMark.isChecked = !holder.binding.toggleMark.isChecked
 
         val place:Place = documents[position]
-        Log.i("what_place", "$place")
+        Log.i("what_place", "$documents")
         holder.binding.tvPlaceName.text = place.place_name
 
         holder.binding.root.setOnClickListener {

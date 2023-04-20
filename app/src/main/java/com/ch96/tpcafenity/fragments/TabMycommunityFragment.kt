@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
 import com.ch96.tpcafenity.adapters.ListCommunityAdapter
+import com.ch96.tpcafenity.adapters.RecyclerMarkedShopAdapter
 import com.ch96.tpcafenity.databinding.FragmentTabMycommunityBinding
 import com.ch96.tpcafenity.model.CommunityList
 import com.ch96.tpcafenity.network.RetrofitHelper
@@ -44,7 +45,8 @@ class TabMycommunityFragment : Fragment() {
             ) {
                 var res = response.body()
                 res?.reverse()
-                binding.recycler.adapter = ListCommunityAdapter(requireContext(), res!!)
+                if(res!!.isEmpty()) binding.layoutNothing.visibility = View.VISIBLE
+                else binding.recycler.adapter = ListCommunityAdapter(requireContext(), res!!)
             }
             override fun onFailure(call: Call<ArrayList<CommunityList>>, t: Throwable) {
                 Log.i("what_post_failed", "$t")

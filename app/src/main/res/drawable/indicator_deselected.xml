@@ -4,9 +4,9 @@
         <shape
             android:innerRadius="0dp"
             android:shape="ring"
-            android:thickness="8dp"
+            android:thickness="@dimen/dot_size"
             android:useLevel="false">
-            <solid android:color="@color/blk600"/>
+            <solid android:color="#80ffffff"/>
         </shape>
     </item>
 

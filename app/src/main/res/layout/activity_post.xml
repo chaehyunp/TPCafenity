@@ -20,20 +20,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.viewpager2.widget.ViewPager2
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"/>
+                android:layout_height="350dp"
+                android:background="@color/black"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"/>
 
-            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                app:dotsSize="12dp"
-                app:dotsSpacing="4dp"
-                app:dotsColor="@color/blk700"
-                app:selectedDotColor="@color/black"/>
+                app:tabBackground="@drawable/indicator_white"
+                android:background="@null"
+                app:tabPadding="@dimen/dot_padding"
+                app:tabIndicatorHeight="0dp"
+                app:tabGravity="center"
+                app:tabIndicatorGravity="center"/>
 
             <TextView
                 android:id="@+id/tv_tag"

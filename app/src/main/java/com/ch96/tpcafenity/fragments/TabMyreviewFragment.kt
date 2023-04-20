@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ch96.tpcafenity.GV
 import com.ch96.tpcafenity.R
+import com.ch96.tpcafenity.adapters.RecyclerMarkedShopAdapter
 import com.ch96.tpcafenity.adapters.ReviewsAdapter
 import com.ch96.tpcafenity.databinding.FragmentTabMyreviewBinding
 import com.ch96.tpcafenity.model.ReviewData
@@ -43,7 +44,8 @@ class TabMyreviewFragment : Fragment() {
             ) {
                 var res = response.body()
                 res?.reverse()
-                binding.recycler.adapter = ReviewsAdapter(requireContext(), res!!)
+                if(res!!.isEmpty()) binding.layoutNothing.visibility = View.VISIBLE
+                else binding.recycler.adapter = ReviewsAdapter(requireContext(), res!!)
             }
             override fun onFailure(call: Call<MutableList<ReviewData>>, t: Throwable) {}
         })

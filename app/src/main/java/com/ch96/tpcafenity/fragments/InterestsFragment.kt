@@ -45,8 +45,8 @@ class InterestsFragment : Fragment() {
                 call: Call<MutableList<Place>>, response: Response<MutableList<Place>>
             ) {
                 var res = response.body()
-                binding.recycler.adapter = RecyclerMarkedShopAdapter(requireContext(), res!!)
-                //Log.i("what_post", "$res")
+                if(res!!.isEmpty()) binding.layoutNothing.visibility = View.VISIBLE
+                else binding.recycler.adapter = RecyclerMarkedShopAdapter(requireContext(), res!!)
             }
             override fun onFailure(call: Call<MutableList<Place>>, t: Throwable) {
                 Log.i("what_getMarked_failed","$t")

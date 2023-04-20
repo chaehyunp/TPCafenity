@@ -1,35 +1,37 @@
 package com.ch96.tpcafenity.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.ch96.tpcafenity.R
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
-import com.ch96.tpcafenity.fragments.ImageFourFragment
-import com.ch96.tpcafenity.fragments.ImageOneFragment
-import com.ch96.tpcafenity.fragments.ImageThreeFragment
-import com.ch96.tpcafenity.fragments.ImageTwoFragment
-import com.ch96.tpcafenity.fragments.ImageZeroFragment
+import com.ch96.tpcafenity.GV
 
-class ViewPagerImageAdapter (val fragmentActivity: FragmentActivity, var images:MutableList<Fragment>):FragmentStateAdapter(fragmentActivity) {
+class ViewPagerImageAdapter (var context:Context, var images:MutableList<String>): PagerAdapter() {
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        var inflator = LayoutInflater.from(context)
+        var view = inflator.inflate(R.layout.recycler_item_image, container, false)
+        var imageView = view.findViewById<ImageView>(R.id.iv)
 
-    override fun getItemCount(): Int = images.size
+        Glide.with(context).load("${GV.baseUrl}/Cafenity/${images.get(position)}").into(imageView)
 
-    override fun createFragment(position: Int): Fragment {
-        return when(position) {
-            0 -> return ImageZeroFragment()
-            1 -> return ImageOneFragment()
-            2 -> return ImageTwoFragment()
-            3 -> return ImageThreeFragment()
-            else -> return ImageFourFragment()
-        }
+        Log.i("imageNum_position", "$position")
+        Log.i("imageNum_images[position]", "${images[position]}")
+
+        container.addView(view)
+
+        return view
     }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) = container.removeView(`object` as View)
+    override fun getCount(): Int = images.size
+    override fun isViewFromObject(view: View, `object`: Any): Boolean = view==`object`
 
 
 }
