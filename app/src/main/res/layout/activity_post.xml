@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.PostActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:background="@color/black"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"/>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:tabBackground="@drawable/indicator_white"
+                android:background="@null"
+                app:tabPadding="@dimen/dot_padding"
+                app:tabIndicatorHeight="0dp"
+                app:tabGravity="center"
+                app:tabIndicatorGravity="center"/>
+
+            <TextView
+                android:id="@+id/tv_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:textColor="@color/hightlight"
+                android:textSize="12sp"
+                android:includeFontPadding="false"
+                android:layout_alignStart="@+id/tv_title"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/pager"
+                android:text="이야기"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_tag"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:includeFontPadding="false"
+                android:text="색안경을 끼고보지마용"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_nick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:text="김아메"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:textColor="@color/blk500"
+                android:textSize="14sp"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="16dp"/>
+
+            <TextView
+                android:id="@+id/devide_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tv_nick"
+                android:layout_toRightOf="@+id/tv_nick"
+                android:text="·"
+                android:fontFamily="@font/noto_sans_kr_bold"
+                android:textColor="@color/blk500"
+                android:textSize="14sp"
+                android:includeFontPadding="false"
+                android:layout_marginHorizontal="4dp"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tv_nick"
+                android:layout_toRightOf="@+id/devide_dot"
+                android:text="2023-04-10 15:39:53"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/blk500"
+                android:textSize="14sp"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:id="@+id/tv_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_nick"
+                android:text="@string/dummy_text_kr"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:includeFontPadding="false"
+                android:layout_margin="16dp"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

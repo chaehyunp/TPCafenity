@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragments.AccountFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/img_no_profile"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/blk800"/>
+
+        <TextView
+            android:id="@+id/tv_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_toRightOf="@id/civ"
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:text="김아메리카노"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_profile"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp">
+
+        <ImageView
+            android:id="@+id/iv_icon_profile"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_account_profile"/>
+
+        <TextView
+            android:id="@+id/tv_title_edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 수정"
+            android:layout_toRightOf="@+id/iv_icon_profile"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="닉네임, 비밀번호 변경"
+            android:layout_toRightOf="@+id/iv_icon_profile"
+            android:textSize="14sp"
+            android:textColor="@color/blk500"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/tv_title_edit_profile"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_mypost"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp">
+
+        <ImageView
+            android:id="@+id/iv_icon_mypost"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_account_mypost"/>
+
+        <TextView
+            android:id="@+id/tv_title_mypost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 작성글"
+            android:layout_toRightOf="@+id/iv_icon_mypost"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="커뮤니티, 리뷰"
+            android:layout_toRightOf="@+id/iv_icon_mypost"
+            android:textSize="14sp"
+            android:textColor="@color/blk500"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/tv_title_mypost"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_alert"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp">
+
+        <ImageView
+            android:id="@+id/iv_icon_alert"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_account_alert"/>
+
+        <TextView
+            android:id="@+id/tv_title_alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알림설정"
+            android:layout_toRightOf="@+id/iv_icon_alert"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="소리알림, 푸쉬알림"
+            android:layout_toRightOf="@+id/iv_icon_alert"
+            android:textSize="14sp"
+            android:textColor="@color/blk500"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/tv_title_alert"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_setting"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp">
+
+        <ImageView
+            android:id="@+id/iv_icon_setting"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_account_setting"/>
+
+        <TextView
+            android:id="@+id/tv_title_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계정설정"
+            android:layout_toRightOf="@+id/iv_icon_setting"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그아웃, 회원탈퇴"
+            android:layout_toRightOf="@+id/iv_icon_setting"
+            android:textSize="14sp"
+            android:textColor="@color/blk500"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/tv_title_setting"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

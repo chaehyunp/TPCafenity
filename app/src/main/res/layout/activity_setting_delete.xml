@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SettingDeleteActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginHorizontal="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="계정을 탈퇴하시려는 이유가 궁금해요."
+            android:fontFamily="@font/noto_sans_kr_bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:spinnerMode="dropdown"
+            android:paddingHorizontal="24dp"
+            android:layout_marginTop="16dp" />
+
+
+        <TextView
+            android:id="@+id/tv_delete_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="계정을 삭제하기면 커뮤니티에 작성하신 글과 매장 리뷰 등 모든 활동 정보가 삭제됩니다. 계정 삭제후 7일간 다시 가입할 수 없습니다."
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:textSize="14sp"
+            android:letterSpacing="0.04"
+            android:lineSpacingExtra="0.8dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingHorizontal="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_no"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="56dp"
+            android:text="취소하기"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_main"/>
+
+        <TextView
+            android:id="@+id/tv_yes"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="56dp"
+            android:text="탈퇴하기"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_sub"
+            android:layout_marginStart="16dp"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

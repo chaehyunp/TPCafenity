@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp">
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/img_no_image"
+        android:layout_marginLeft="8dp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:textColor="@color/hightlight"
+        android:textSize="12sp"
+        android:includeFontPadding="false"
+        android:layout_alignStart="@+id/tv_title"
+        android:layout_marginVertical="2dp"
+        android:text="이야기"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@+id/tv_tag"
+        android:layout_toEndOf="@+id/iv_img"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:includeFontPadding="false"
+        android:text="오늘같이 더운날은 아이스 아메리카노 추천합니다"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tv_nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="김카페"
+        android:textSize="14sp"
+        android:textColor="@color/blk600"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:layout_alignStart="@+id/tv_title"
+        android:layout_marginBottom="8dp"
+        android:layout_above="@+id/dl"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_img"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_alignBaseline="@+id/tv_nick"
+        android:includeFontPadding="false"
+        android:text="23.03.31"
+        android:textColor="@color/blk600"
+        android:textSize="14sp"/>
+
+    <ImageView
+        android:id="@+id/dl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/devide_line"
+        android:layout_below="@+id/iv_img"
+        android:layout_marginTop="6dp"/>
+
+</RelativeLayout>
