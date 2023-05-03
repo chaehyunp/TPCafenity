@@ -14,7 +14,9 @@ import com.ch96.tpcafenity.databinding.ActivityLoginBinding
 import com.ch96.tpcafenity.model.LoginUserData
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
+import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.util.Utility
+import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,11 +39,6 @@ class LoginActivity : AppCompatActivity() {
 //        } else if (binding.radioBtnAutoLogin.isChecked == false && binding.radioBtnSaveId.isChecked == true)
 //            restoreLoginEmail()
 
-        // SKIP
-        binding.btnSkip.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-
         //로그인버튼
         binding.btnLogin.setOnClickListener { clickLoginBtn() }
 
@@ -50,32 +47,12 @@ class LoginActivity : AppCompatActivity() {
 
         //간편로그인
         binding.btnLoginKakao.setOnClickListener { clickKakaoBtn() }
-        binding.btnLoginGoogle.setOnClickListener { clickGoogleBtn() }
-        binding.btnLoginNaver.setOnClickListener { clickNaverBtn() }
     }
 
     private fun clickLoginBtn() {
         //소프트 키보드 없애기
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken,0)
-
-        //라디오버튼(자동로그인,아이디저장)
-//        val autologinState = binding.radioBtnAutoLogin.isChecked
-//        val saveEmailState = binding.radioBtnSaveId.isChecked
-//        if (autologinState == true) {
-//            autoLoginRadioState(true)
-//            saveLoginEmail(binding.etEmail.toString())
-//            saveLoginPw(binding.etPw.toString())
-//
-//            if(saveEmailState != true) {
-//                binding.radioBtnSaveId.isChecked = !binding.radioBtnSaveId.isChecked
-//                saveEmailRadioState(true)
-//            }
-//        } else { //자동로그인 비활성화, 아이디저장만 하는 경우
-//                autoLoginRadioState(false)
-//                saveEmailRadioState(true)
-//                saveLoginEmail(binding.etEmail.toString())
-//        }
 
         //서버에 전송할 데이터 [email, password]
         val emailUser = mutableMapOf<String, String>()
@@ -117,71 +94,37 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun clickKakaoBtn() {}
-    private fun clickGoogleBtn() {}
-    private fun clickNaverBtn() {}
+    private fun clickKakaoBtn() {
+        //카카오 로그인 공동 callback 함수
+        val callback:(OAuthToken?, Throwable?)->Unit = { token, error ->
+            if (token != null) {
+                Toast.makeText(this, "카카오 로그인 성공", Toast.LENGTH_SHORT).show()
 
-    private fun saveLoginEmail(email:String) {
-        val pref = getSharedPreferences("pref_email", MODE_PRIVATE)
-        val editor = pref.edit()
-        editor.putString("email", email)
-        editor.apply()
-    }
+                //사용자 정보 요청 [1.회원번호, 2.이메일주소]
+                UserApiClient.instance.me { user, error ->
+                    if (user != null) {
+                        var id:String = user.id.toString()
+                        var email:String = user.kakaoAccount?.email?:""
 
-    private fun saveLoginPw(pw:String) {
-        val pref = getSharedPreferences("pref_pw", Activity.MODE_PRIVATE)
-        val editor = pref.edit()
-        editor.putString("pw", pw)
-        editor.apply()
-    }
+                        Toast.makeText(this, "$email", Toast.LENGTH_SHORT).show()
+                        GV.kakaoEmail = email
 
-    private fun autoLoginRadioState(check:Boolean) {
-        val autoLogin = getSharedPreferences("pref_checked_auto_login", MODE_PRIVATE)
-        val editor = autoLogin.edit()
-        editor.putBoolean("auto_login", check)
-        editor.apply()
-    }
-
-    private fun saveEmailRadioState(check:Boolean) {
-        val saveEmail = getSharedPreferences("pref_checked_save_email", MODE_PRIVATE)
-        val editor = saveEmail.edit()
-        editor.putBoolean("save_email", check)
-        editor.apply()
-    }
-
-    private fun restoreLoginEmail() {
-        val prefEmail = getSharedPreferences("pref_email", MODE_PRIVATE)
-        if(prefEmail != null) {
-            val email = prefEmail.getString("pref_email", "")
-            binding.etEmail.text = Editable.Factory.getInstance().newEditable(email)
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
+                }
+            } else {
+                Toast.makeText(this, "카카오 로그인 실패", Toast.LENGTH_SHORT).show()
+            }
+        }
+        //카카오톡이 설치되어있으면 카톡으로 로그인, 없으면 카카오계정 로그인
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
+            UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
+        } else {
+            UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
         }
     }
 
-    private fun restoreLoginPw() {
-        val prefPw = getSharedPreferences("pref_pw", MODE_PRIVATE)
-        if(prefPw != null) {
-            val pw = prefPw.getString("pref_pw", "")
-            binding.etPw.text = Editable.Factory.getInstance().newEditable(pw)
-        }
-    }
-
-    private fun updateAutoLoginRadioState() {
-        val prefAutoLogin = getSharedPreferences("pref_checked_auto_login", MODE_PRIVATE)
-        if(prefAutoLogin != null) {
-            val savedState = prefAutoLogin.getBoolean("auto_login", false)
-            val checkedState = binding.radioBtnAutoLogin.isChecked
-            if (checkedState != savedState) !binding.radioBtnAutoLogin.isChecked
-        }
-    }
-
-    private fun updateSaveEmailRadioState() {
-        val prefSaveEmail = getSharedPreferences("pref_checked_save_email", MODE_PRIVATE)
-        if(prefSaveEmail != null) {
-            val savedState = prefSaveEmail.getBoolean("save_email", false)
-            val checkedState = binding.radioBtnSaveId.isChecked
-            if (checkedState != savedState) !binding.radioBtnSaveId.isChecked
-        }
-    }
 
 
 }
