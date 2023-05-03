@@ -35,7 +35,6 @@ class TabShopDetailFragment : Fragment() {
         sia.place_url.apply {
             binding.webview.loadUrl(this ?: "")
         }
-
         return binding.root
     }
 
