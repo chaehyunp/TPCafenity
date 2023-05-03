@@ -3,6 +3,7 @@ package com.ch96.tpcafenity.activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -29,15 +30,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //로그인 데이터 있으면 불러오기
-//        updateAutoLoginRadioState()
-//        updateSaveEmailRadioState()
-//        if (binding.radioBtnAutoLogin.isChecked == true) {
-//            restoreLoginEmail()
-//            restoreLoginPw()
-//            clickLoginBtn()
-//        } else if (binding.radioBtnAutoLogin.isChecked == false && binding.radioBtnSaveId.isChecked == true)
-//            restoreLoginEmail()
+        var pref = getSharedPreferences("Data", MODE_PRIVATE)
+        var savedEmail = pref.getString("email","")
+        var savedPassword = pref.getString("password", "")
+
+        //sharedPreferences에 저장되어있는 값이 있다면
+        if (savedEmail != "") {
+            binding.etEmail.text = Editable.Factory.getInstance().newEditable(savedEmail)
+            binding.etPw.text = Editable.Factory.getInstance().newEditable(savedPassword)
+            clickLoginBtn()
+        }
+
 
         //로그인버튼
         binding.btnLogin.setOnClickListener { clickLoginBtn() }
@@ -65,13 +68,14 @@ class LoginActivity : AppCompatActivity() {
         retrofitService.loginEmailAccount(emailUser).enqueue(object : Callback<MutableList<LoginUserData>>{
             override fun onResponse(call: Call<MutableList<LoginUserData>>, response: Response<MutableList<LoginUserData>>) {
                 var res = response.body()
-                Log.i("what_res","$res")
+
                 if (res != null) {
                     //전역변수에 유저 닉네임 저장
                     GV.loginUserNo = res[0].no
                     GV.loginUserNick = res[0].nick
 
-                    Log.i("what_login", "${GV.loginUserNo}, ${GV.loginUserNick}")
+                    //sharedPreference에 저장
+                    saveAccount()
 
                     Toast.makeText(this@LoginActivity, "${GV.loginUserNick}님, 반갑습니다! ", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
@@ -125,6 +129,14 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    fun saveAccount(){
+        var email = binding.etEmail.text.toString()
+        var password = binding.etPw.text.toString()
 
+        var editor = getSharedPreferences("Data", MODE_PRIVATE).edit()
+        editor.putString("email", email)
+        editor.putString("password", password)
+        editor.commit()
+    }
 
 }
