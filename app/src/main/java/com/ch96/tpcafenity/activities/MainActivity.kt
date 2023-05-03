@@ -147,6 +147,8 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     searchPlaceResponse = response.body()
                     supportFragmentManager.beginTransaction().replace(R.id.container_fragment, TabListFragment()).commit()
+                    var searchWord = intent.getStringExtra("searchWord")
+
                 }
 
                 override fun onFailure(call: Call<KakaoSearchPlaceResponse>, t: Throwable) {
