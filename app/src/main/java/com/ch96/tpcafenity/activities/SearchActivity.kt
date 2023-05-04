@@ -80,6 +80,9 @@ class SearchActivity : AppCompatActivity() {
     //Kakao 장소 검색 API 파싱 메소드
     private fun searchPlace() {
 
+        var dummy = mutableListOf<Place>()
+        dummy.add(Place("800330743", "놀숲 한양대점", "02-2299-9995", "서울 성동구 행당동 19-98", "서울 성동구 마조로 11", "127.040690005258", "37.5589786496565", "http://place.map.kakao.com/800330743", "650")
+
         //REST API
         val retrofit = RetrofitHelper.getRetrofitInstance(GV.kakaoUrl)
         val retrofitService = retrofit.create(RetrofitService::class.java)
