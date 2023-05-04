@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        android:id="@+id/tv_place_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:includeFontPadding="false"
+        android:text="아메리카노"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/noto_sans_kr_regular"
+        android:textSize="12sp"
+        android:textColor="@color/blk600"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="서울 성동구 마조로 15-11, 2층 (행당동)"
+        android:layout_below="@+id/tv_place_name"
+        android:layout_marginLeft="16dp"/>
+
+
+
+    <ImageView
+        android:id="@+id/dl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/devide_line"
+        android:layout_below="@+id/tv_address"
+        android:layout_marginTop="12dp"/>
+
+</RelativeLayout>

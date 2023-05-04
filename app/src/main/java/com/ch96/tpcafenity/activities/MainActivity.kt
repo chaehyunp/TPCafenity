@@ -28,6 +28,7 @@ import com.ch96.tpcafenity.fragments.HomeFragment
 import com.ch96.tpcafenity.fragments.InterestsFragment
 import com.ch96.tpcafenity.fragments.TabListFragment
 import com.ch96.tpcafenity.model.KakaoSearchPlaceResponse
+import com.ch96.tpcafenity.model.Place
 import com.ch96.tpcafenity.network.RetrofitHelper
 import com.ch96.tpcafenity.network.RetrofitService
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -39,6 +40,7 @@ import com.google.android.gms.location.Priority
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.Serializable
 
 
 private const val TAG_HOME = "home_fragment"
@@ -58,6 +60,10 @@ class MainActivity : AppCompatActivity() {
     var categoryCode:String = "CE7" //카페
     //2. 현재 내위치 정보 객체 (위도 : y, 경도 : x)
     var myLocation: Location? = null
+
+    var lat = ""
+    var lng = ""
+
 
     //Google Fused Location API (통합 위치 제공자)
     val locationProvider: FusedLocationProviderClient by lazy { LocationServices.getFusedLocationProviderClient(this) }
@@ -125,6 +131,9 @@ class MainActivity : AppCompatActivity() {
 
             myLocation = p0.lastLocation
 
+            lat = myLocation?.latitude.toString()
+            lng = myLocation?.longitude.toString()
+
             //위치 탐색 완료, 실시간 업데이트 종료
             locationProvider.removeLocationUpdates(this)
             //얻어온 위치정보를 통해 검색 시작
@@ -147,7 +156,6 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     searchPlaceResponse = response.body()
                     supportFragmentManager.beginTransaction().replace(R.id.container_fragment, TabListFragment()).commit()
-                    var searchWord = intent.getStringExtra("searchWord")
 
                 }
 
@@ -167,7 +175,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item?.itemId) {
             R.id.menu_search -> {
-                startActivity(Intent(this,SearchActivity::class.java))
+                //검색Activity에 현위치값 넘기기
+                var intent = Intent(this@MainActivity, SearchActivity::class.java)
+                intent.putExtra("lat", lat)
+                intent.putExtra("lng", lng)
+
+                Log.i("what lat", "$lat")
+                Log.i("what lng", "$lng")
+
+                startActivity(intent)
             }
             R.id.menu_noti -> {
                 binding.drawerLayout.openDrawer(binding.navDrawer)
